@@ -3,13 +3,19 @@
   "tagline": "Soluciones digitales para tu negocio",
   "description": "Sitio de ejemplo de la plantilla Jamstack: servicios profesionales con contenido editable.",
   "contact": {
-    "email": "hola@ejemplo.com",
-    "phone": "+52 55 0000 0000",
+    "email": "hehurove@gmail.com",
+    "phone": "+52 7204558369",
     "address": "Ciudad de México, México"
   },
   "social": [
-    { "label": "GitHub", "href": "https://github.com" },
-    { "label": "LinkedIn", "href": "https://linkedin.com" }
+    {
+      "label": "GitHub",
+      "href": "https://github.com/hehurove-gif"
+    },
+    {
+      "label": "LinkedIn",
+      "href": "https://www.linkedin.com/in/romero-velazquez-h-6939a73b1/"
+    }
   ],
   "footerText": "© 2026 Estudio Ejemplo. Todos los derechos reservados."
 }
