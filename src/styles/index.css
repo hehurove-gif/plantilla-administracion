@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Valores iniciales (los reemplaza content/theme.json al cargar). */
+/* Respaldo oscuro; el tema real se genera desde content/theme.json (ver vite.config.ts y src/themes). */
 :root {
   --c-bg: #0a0c10;
   --c-bg-soft: #0f1218;
@@ -14,22 +14,6 @@
   --glow: 22%;
   --r-theme: 1.5rem;
   color-scheme: dark;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --c-bg: #f6f7fb;
-    --c-bg-soft: #eef0f6;
-    --c-surface: #ffffff;
-    --c-line: #dde1ea;
-    --c-text: #0e1220;
-    --c-muted: #555e72;
-    --c-primary: #0e7490;
-    --c-secondary: #6d28d9;
-    --c-on-primary: #ffffff;
-    --glow: 12%;
-    color-scheme: light;
-  }
 }
 
 @theme inline {

@@ -12,14 +12,14 @@
     "onPrimary": "#06121a"
   },
   "light": {
-    "background": "#f6f7fb",
-    "backgroundSoft": "#eef0f6",
+    "background": "#f1fcfe",
+    "backgroundSoft": "#d6ecf8",
     "surface": "#ffffff",
-    "line": "#dde1ea",
-    "text": "#0e1220",
-    "muted": "#555e72",
-    "primary": "#0e7490",
-    "secondary": "#6d28d9",
+    "line": "#8ecbee",
+    "text": "#1f3b57",
+    "muted": "#2c5c8a",
+    "primary": "#2a74ad",
+    "secondary": "#c46f12",
     "onPrimary": "#ffffff"
   },
   "radius": "xl"

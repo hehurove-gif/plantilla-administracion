@@ -14,7 +14,7 @@ Todo texto de ejemplo dice dónde está: **`Texto N, sección X`**. Por ejemplo,
 
 - `content/site.json`: nombre, descripción SEO, contacto, WhatsApp (`whatsapp` solo dígitos con código de país; vacío oculta todos los botones de WhatsApp), `schedulingUrl` (Calendly o Google Calendar; vacío oculta el botón «agendar llamada»), `social` (instagram, x, linkedin, github, tiktok, discord) y textos del pie y un `footer.credit` opcional («Developed by Hetor» con enlace; bórralo para ocultarlo en sitios de cliente que no lo quieran).
 - `content/navigation.json`: `items[{label, href}]`. Acepta rutas (`/about`) y anclas (`/#servicios`); ambas se validan.
-- `content/theme.json`: `mode` (`auto|dark|light`), paletas `dark` y `light` (hex) y `radius`. En `auto` sigue el modo del dispositivo.
+- `content/theme.json`: `mode` (`auto|dark|light`), paletas `dark` y `light` (hex) y `radius`. En `auto` sigue el modo del dispositivo y el encabezado muestra un botón sol/luna para cambiarlo (se recuerda en el navegador); `dark` o `light` fijan el tema y ocultan el botón. La paleta clara por defecto es la de PETCA (azul y durazno); el naranja de acento es `#c46f12`, del propio PETCA, porque el durazno claro no se lee como texto.
 - `content/collections/services.json`, `projects.json`, `testimonials.json`: `items[]` con `id` único. Las secciones los **referencian** (no duplican datos).
 - `content/pages/<slug>.json`: `slug` (igual al nombre del archivo; `home` = `/`), `title`, `description?`, `sections[]`.
 

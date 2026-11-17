@@ -25,14 +25,17 @@ const paletteVars = (p: Palette, scheme: 'dark' | 'light'): string =>
     `color-scheme:${scheme}`,
   ].join(';');
 
-/** Traduce theme.json a CSS. `auto` sigue el modo claro/oscuro del dispositivo. */
+/** Traduce theme.json a CSS. `auto` sigue el dispositivo y permite elegir con el botón; `dark`/`light` lo fijan. */
 export function themeToCss(theme: Theme): string {
   const radius = `--r-theme:${RADIUS[theme.radius]}`;
   if (theme.mode === 'dark') return `:root{${paletteVars(theme.dark, 'dark')};${radius}}`;
   if (theme.mode === 'light') return `:root{${paletteVars(theme.light, 'light')};${radius}}`;
+  // auto: oscuro por defecto, claro si el dispositivo lo pide, y la elección manual del botón (data-theme) manda sobre ambos.
   return (
     `:root{${paletteVars(theme.dark, 'dark')};${radius}}` +
-    `@media (prefers-color-scheme: light){:root{${paletteVars(theme.light, 'light')}}}`
+    `@media (prefers-color-scheme: light){:root{${paletteVars(theme.light, 'light')}}}` +
+    `:root[data-theme="light"]{${paletteVars(theme.light, 'light')}}` +
+    `:root[data-theme="dark"]{${paletteVars(theme.dark, 'dark')}}`
   );
 }
 

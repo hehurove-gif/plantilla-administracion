@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { content } from '@/content/loader';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { WhatsappButton } from '@/components/ui/WhatsappButton';
 
 export function Header() {
@@ -36,6 +37,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
+          {content.theme.mode === 'auto' && <ThemeToggle />}
           <div className="hidden sm:block">
             <WhatsappButton />
           </div>

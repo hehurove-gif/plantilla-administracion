@@ -19,6 +19,10 @@ Plantilla web reutilizable: **React + TypeScript + Vite + Tailwind**, con el con
 
 `wrangler.jsonc` sirve `dist/` como SPA. Deploy command: `npx wrangler deploy`. Build command: `npm run build`.
 
+## Tema claro/oscuro
+
+`content/theme.json` define las dos paletas. En modo `auto` hay un botón sol/luna en el encabezado; con `"mode": "light"` o `"dark"` el tema queda fijo. El CSS del tema se inserta en el HTML al compilar, así que no hay parpadeo.
+
 ## Textos de ejemplo
 
 Los textos dicen dónde están: `Texto 1, sección Hero`. En Pages CMS el campo se llama «Texto 1 · …», así sabes qué editar. Detalle en `docs/content-model.md`.

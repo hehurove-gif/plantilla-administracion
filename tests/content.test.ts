@@ -6,6 +6,7 @@ import { loadContent } from '../src/content/loader';
 import { themeToCss } from '../src/themes/applyTheme';
 import { whatsappLink } from '../src/utils/whatsapp';
 import { socialNetworks } from '../src/schemas';
+import { THEME_STORAGE_KEY, effectiveScheme, nextScheme, readStoredScheme, storeScheme } from '../src/themes/themeMode';
 
 const read = (rel: string) => JSON.parse(readFileSync(join(process.cwd(), rel), 'utf8'));
 
@@ -237,12 +238,72 @@ describe('tema', () => {
     const css = themeToCss(validateContent(realRaw()).theme);
     expect(css).toContain('--c-primary:#22d3ee');
     expect(css).toContain('@media (prefers-color-scheme: light)');
-    expect(css).toContain('--c-primary:#0e7490');
+    expect(css).toContain('--c-primary:#2a74ad');
+  });
+
+  it('modo auto permite elegir tema a mano (data-theme manda sobre el dispositivo)', () => {
+    const css = themeToCss(validateContent(realRaw()).theme);
+    expect(css).toContain(':root[data-theme="light"]{');
+    expect(css).toContain(':root[data-theme="dark"]{');
+    expect(css.indexOf(':root[data-theme="light"]')).toBeGreaterThan(css.indexOf('@media (prefers-color-scheme: light)'));
+  });
+
+  it('el tema claro usa la paleta de PETCA', () => {
+    const { light } = validateContent(realRaw()).theme;
+    expect(light).toMatchObject({
+      background: '#f1fcfe',
+      surface: '#ffffff',
+      text: '#1f3b57',
+      primary: '#2a74ad',
+      line: '#8ecbee',
+    });
   });
 
   it('modo oscuro fijo no incluye la paleta clara', () => {
     const theme = { ...validateContent(realRaw()).theme, mode: 'dark' as const };
     expect(themeToCss(theme)).not.toContain('prefers-color-scheme');
+    expect(themeToCss(theme)).not.toContain('data-theme');
+  });
+});
+
+describe('elección manual de tema', () => {
+  const fake = (value: string | null) => ({ getItem: () => value, setItem: () => undefined });
+
+  it('lee solo valores válidos', () => {
+    expect(readStoredScheme(fake('light'))).toBe('light');
+    expect(readStoredScheme(fake('dark'))).toBe('dark');
+    expect(readStoredScheme(fake('azul'))).toBeNull();
+    expect(readStoredScheme(fake(null))).toBeNull();
+    expect(readStoredScheme(null)).toBeNull();
+  });
+
+  it('no falla si el almacenamiento está bloqueado', () => {
+    const blocked = {
+      getItem: () => {
+        throw new Error('bloqueado');
+      },
+      setItem: () => {
+        throw new Error('bloqueado');
+      },
+    };
+    expect(readStoredScheme(blocked)).toBeNull();
+    expect(() => storeScheme(blocked, 'dark')).not.toThrow();
+  });
+
+  it('guarda con la clave que usa index.html', () => {
+    const saved: Record<string, string> = {};
+    storeScheme({ getItem: () => null, setItem: (k, v) => void (saved[k] = v) }, 'light');
+    expect(saved).toEqual({ theme: 'light' });
+    expect(readFileSync(join(process.cwd(), 'index.html'), 'utf8')).toContain(`getItem('${THEME_STORAGE_KEY}')`);
+  });
+
+  it('el tema efectivo prioriza la elección sobre el dispositivo', () => {
+    expect(effectiveScheme('dark', true)).toBe('dark');
+    expect(effectiveScheme('light', false)).toBe('light');
+    expect(effectiveScheme(null, true)).toBe('light');
+    expect(effectiveScheme(null, false)).toBe('dark');
+    expect(nextScheme('dark')).toBe('light');
+    expect(nextScheme('light')).toBe('dark');
   });
 });
 
