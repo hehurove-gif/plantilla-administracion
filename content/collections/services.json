@@ -1,0 +1,29 @@
+{
+  "items": [
+    {
+      "id": "sitios-web",
+      "title": "Sitios web",
+      "description": "Páginas rápidas, responsivas y fáciles de mantener, listas para crecer con tu negocio.",
+      "icon": "code",
+      "price": "Desde $5,000 MXN"
+    },
+    {
+      "id": "identidad",
+      "title": "Identidad visual",
+      "description": "Logotipo, paleta y lineamientos para que tu marca se vea coherente en todos lados.",
+      "icon": "palette"
+    },
+    {
+      "id": "analitica",
+      "title": "Analítica básica",
+      "description": "Mide visitas y rendimiento para tomar decisiones con datos reales.",
+      "icon": "chart"
+    },
+    {
+      "id": "mantenimiento",
+      "title": "Mantenimiento",
+      "description": "Actualizaciones, respaldos y mejoras continuas para que tu sitio siempre funcione.",
+      "icon": "shield"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Estudio Ejemplo",
+  "tagline": "Soluciones digitales para tu negocio",
+  "description": "Sitio de ejemplo de la plantilla Jamstack: servicios profesionales con contenido editable.",
+  "contact": {
+    "email": "hola@ejemplo.com",
+    "phone": "+52 55 0000 0000",
+    "address": "Ciudad de México, México"
+  },
+  "social": [
+    { "label": "GitHub", "href": "https://github.com" },
+    { "label": "LinkedIn", "href": "https://linkedin.com" }
+  ],
+  "footerText": "© 2026 Estudio Ejemplo. Todos los derechos reservados."
+}

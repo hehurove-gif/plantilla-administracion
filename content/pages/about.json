@@ -1,0 +1,20 @@
+{
+  "slug": "about",
+  "title": "Nosotros",
+  "description": "Quiénes somos",
+  "sections": [
+    {
+      "type": "text",
+      "title": "Quiénes somos",
+      "paragraphs": [
+        "Somos un equipo pequeño enfocado en construir sitios web claros, rápidos y mantenibles.",
+        "Trabajamos con una plantilla probada para ofrecerte resultados en menos tiempo, sin sacrificar calidad."
+      ]
+    },
+    {
+      "type": "services",
+      "title": "Nuestros servicios",
+      "limit": 3
+    }
+  ]
+}

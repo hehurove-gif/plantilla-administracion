@@ -1,0 +1,11 @@
+{
+  "colors": {
+    "primary": "#4f46e5",
+    "primaryContrast": "#ffffff",
+    "background": "#f8fafc",
+    "surface": "#ffffff",
+    "text": "#0f172a",
+    "muted": "#64748b"
+  },
+  "radius": "lg"
+}

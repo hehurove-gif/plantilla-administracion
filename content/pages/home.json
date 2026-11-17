@@ -1,0 +1,30 @@
+{
+  "slug": "home",
+  "title": "Inicio",
+  "description": "Página de inicio",
+  "sections": [
+    {
+      "type": "hero",
+      "title": "Tu presencia en línea, sin complicaciones",
+      "subtitle": "Creamos sitios rápidos y fáciles de editar para que te enfoques en tu negocio.",
+      "image": "/images/hero.svg",
+      "primaryCta": { "label": "Contáctanos", "href": "/contact" },
+      "secondaryCta": { "label": "Conoce más", "href": "/about" }
+    },
+    {
+      "type": "services",
+      "title": "Lo que hacemos",
+      "intro": "Servicios pensados para negocios que quieren verse bien y funcionar mejor."
+    },
+    {
+      "type": "testimonials",
+      "title": "Lo que dicen nuestros clientes"
+    },
+    {
+      "type": "cta",
+      "title": "¿Listo para empezar?",
+      "text": "Cuéntanos tu idea y te proponemos un plan.",
+      "button": { "label": "Escríbenos", "href": "/contact" }
+    }
+  ]
+}

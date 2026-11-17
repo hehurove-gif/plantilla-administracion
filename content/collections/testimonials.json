@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "id": "ana",
+      "author": "Ana Martínez",
+      "role": "Directora, Café Central",
+      "quote": "Pasamos de depender de otros para cada cambio a editar nuestro sitio en minutos."
+    },
+    {
+      "id": "luis",
+      "author": "Luis Hernández",
+      "role": "Fundador, Liga Local",
+      "quote": "El sitio carga rápido y se ve muy bien en el celular. Justo lo que necesitábamos."
+    },
+    {
+      "id": "sofia",
+      "author": "Sofía Ramírez",
+      "role": "Consultora independiente",
+      "quote": "Proceso claro, entregas a tiempo y un resultado profesional."
+    }
+  ]
+}

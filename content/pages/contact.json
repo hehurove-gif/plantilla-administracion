@@ -1,0 +1,12 @@
+{
+  "slug": "contact",
+  "title": "Contacto",
+  "description": "Ponte en contacto",
+  "sections": [
+    {
+      "type": "contact",
+      "title": "Hablemos",
+      "intro": "Escríbenos y te respondemos lo antes posible."
+    }
+  ]
+}
