@@ -1,0 +1,321 @@
+media:
+  input: public/images
+  output: /images
+  categories: [image]
+
+content:
+  - name: site
+    label: Sitio
+    type: file
+    path: content/site.json
+    format: json
+    fields:
+      - name: name
+        label: Nombre del sitio
+        type: string
+        required: true
+      - name: tagline
+        label: Lema
+        type: string
+      - name: description
+        label: Descripción
+        type: text
+        required: true
+      - name: contact
+        label: Contacto
+        type: object
+        fields:
+          - name: email
+            label: Correo
+            type: string
+            required: true
+          - name: phone
+            label: Teléfono
+            type: string
+          - name: address
+            label: Ubicación
+            type: string
+      - name: social
+        label: Redes sociales
+        type: object
+        list: true
+        fields:
+          - name: label
+            label: Nombre
+            type: string
+            required: true
+          - name: href
+            label: Enlace (https://...)
+            type: string
+            required: true
+      - name: footerText
+        label: Texto del pie
+        type: string
+        required: true
+
+  - name: navigation
+    label: Navegación
+    type: file
+    path: content/navigation.json
+    format: json
+    fields:
+      - name: items
+        label: Enlaces del menú
+        type: object
+        list: true
+        fields:
+          - name: label
+            label: Texto
+            type: string
+            required: true
+          - name: href
+            label: Ruta (ej. / o /about)
+            type: string
+            required: true
+
+  - name: theme
+    label: Tema
+    type: file
+    path: content/theme.json
+    format: json
+    fields:
+      - name: colors
+        label: Colores (formato #rrggbb)
+        type: object
+        fields:
+          - name: primary
+            label: Primario
+            type: string
+            required: true
+          - name: primaryContrast
+            label: Texto sobre primario
+            type: string
+            required: true
+          - name: background
+            label: Fondo
+            type: string
+            required: true
+          - name: surface
+            label: Superficies (tarjetas)
+            type: string
+            required: true
+          - name: text
+            label: Texto
+            type: string
+            required: true
+          - name: muted
+            label: Texto secundario
+            type: string
+            required: true
+      - name: radius
+        label: Redondeo de esquinas
+        type: select
+        options:
+          values:
+            - name: none
+              label: Ninguno
+            - name: sm
+              label: Pequeño
+            - name: md
+              label: Medio
+            - name: lg
+              label: Grande
+            - name: xl
+              label: Muy grande
+
+  - name: services
+    label: Servicios
+    type: file
+    path: content/collections/services.json
+    format: json
+    fields:
+      - name: items
+        label: Servicios
+        type: object
+        list: true
+        fields:
+          - name: id
+            label: Identificador único (sin espacios)
+            type: string
+            required: true
+          - name: title
+            label: Título
+            type: string
+            required: true
+          - name: description
+            label: Descripción
+            type: text
+            required: true
+          - name: icon
+            label: Ícono
+            type: select
+            options:
+              values:
+                - name: code
+                  label: Código
+                - name: palette
+                  label: Paleta
+                - name: chart
+                  label: Gráfica
+                - name: shield
+                  label: Escudo
+                - name: rocket
+                  label: Cohete
+                - name: chat
+                  label: Chat
+          - name: price
+            label: Precio (opcional)
+            type: string
+
+  - name: testimonials
+    label: Testimonios
+    type: file
+    path: content/collections/testimonials.json
+    format: json
+    fields:
+      - name: items
+        label: Testimonios
+        type: object
+        list: true
+        fields:
+          - name: id
+            label: Identificador único (sin espacios)
+            type: string
+            required: true
+          - name: author
+            label: Autor
+            type: string
+            required: true
+          - name: role
+            label: Cargo (opcional)
+            type: string
+          - name: quote
+            label: Testimonio
+            type: text
+            required: true
+          - name: image
+            label: Foto (opcional)
+            type: image
+
+  - name: pages
+    label: Páginas
+    type: collection
+    path: content/pages
+    format: json
+    fields:
+      - name: slug
+        label: Slug (debe ser igual al nombre del archivo; "home" es la portada)
+        type: string
+        required: true
+      - name: title
+        label: Título
+        type: string
+        required: true
+      - name: description
+        label: Descripción SEO
+        type: text
+      - name: sections
+        label: Secciones
+        type: block
+        list: true
+        blockKey: type
+        blocks:
+          - name: hero
+            label: Portada (hero)
+            fields:
+              - name: title
+                label: Título
+                type: string
+                required: true
+              - name: subtitle
+                label: Subtítulo
+                type: text
+              - name: image
+                label: Imagen
+                type: image
+              - name: primaryCta
+                label: Botón principal
+                type: object
+                fields:
+                  - name: label
+                    label: Texto
+                    type: string
+                  - name: href
+                    label: Enlace
+                    type: string
+              - name: secondaryCta
+                label: Botón secundario
+                type: object
+                fields:
+                  - name: label
+                    label: Texto
+                    type: string
+                  - name: href
+                    label: Enlace
+                    type: string
+          - name: services
+            label: Servicios
+            fields:
+              - name: title
+                label: Título
+                type: string
+                required: true
+              - name: intro
+                label: Introducción
+                type: text
+              - name: limit
+                label: Máximo a mostrar (opcional)
+                type: number
+          - name: testimonials
+            label: Testimonios
+            fields:
+              - name: title
+                label: Título
+                type: string
+                required: true
+              - name: limit
+                label: Máximo a mostrar (opcional)
+                type: number
+          - name: text
+            label: Texto
+            fields:
+              - name: title
+                label: Título
+                type: string
+              - name: paragraphs
+                label: Párrafos
+                type: text
+                list: true
+                required: true
+          - name: cta
+            label: Llamada a la acción
+            fields:
+              - name: title
+                label: Título
+                type: string
+                required: true
+              - name: text
+                label: Texto
+                type: text
+              - name: button
+                label: Botón
+                type: object
+                fields:
+                  - name: label
+                    label: Texto
+                    type: string
+                    required: true
+                  - name: href
+                    label: Enlace
+                    type: string
+                    required: true
+          - name: contact
+            label: Contacto
+            fields:
+              - name: title
+                label: Título
+                type: string
+                required: true
+              - name: intro
+                label: Introducción
+                type: text
