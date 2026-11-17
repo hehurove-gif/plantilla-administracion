@@ -19,10 +19,10 @@ export const link = z.object({
   href,
 });
 
-export const iconNames = ['code', 'palette', 'chart', 'shield', 'rocket', 'chat'] as const;
+export const iconNames = ['code', 'palette', 'chart', 'shield', 'rocket', 'chat', 'bolt', 'mobile', 'settings'] as const;
 
 /** Redes con ícono en public/social/<red>.png. WhatsApp se genera aparte desde contact.whatsapp. */
-export const socialNetworks = ['instagram', 'x', 'tiktok', 'discord'] as const;
+export const socialNetworks = ['instagram', 'x', 'linkedin', 'tiktok', 'discord'] as const;
 
 /* ---------- site / navigation / theme ---------- */
 
@@ -40,6 +40,12 @@ export const siteSchema = z.object({
       .default(''),
     whatsappMessage: z.string().default(''),
     whatsappLabel: z.string().default('WhatsApp'),
+    /** Enlace para agendar una llamada (Calendly, Google Calendar...). Vacío = no se muestra el botón. */
+    schedulingUrl: z
+      .string()
+      .regex(/^(https:\/\/[^\s]+)?$/, 'Debe ser una URL https (o vacío)')
+      .default(''),
+    schedulingLabel: z.string().default('Agendar una llamada'),
   }),
   /** Redes en el pie y en contacto. Quita una de la lista para ocultarla. */
   social: z
@@ -126,6 +132,8 @@ export const heroSection = z.object({
   image: imagePath.optional(),
   primaryCta: link.optional(),
   secondaryCta: link.optional(),
+  /** Parte del título que se resalta con el degradado de acento. */
+  titleHighlight: z.string().optional(),
   showWhatsapp: z.boolean().default(false),
   tagsLabel: z.string().optional(),
   tags: z.array(z.string().min(1)).default([]),
@@ -170,6 +178,26 @@ export const textSection = z.object({
   image: imagePath.optional(),
 });
 
+export const pricingSection = z.object({
+  ...base,
+  type: z.literal('pricing'),
+  title: z.string().min(1),
+  intro: z.string().optional(),
+  plans: z
+    .array(
+      z.object({
+        name: z.string().min(1),
+        description: z.string().optional(),
+        price: z.string().min(1),
+        period: z.string().optional(),
+        features: z.array(z.string().min(1)).default([]),
+        highlighted: z.boolean().default(false),
+        cta: link.optional(),
+      }),
+    )
+    .min(1),
+});
+
 export const faqSection = z.object({
   ...base,
   type: z.literal('faq'),
@@ -184,6 +212,7 @@ export const ctaSection = z.object({
   text: z.string().optional(),
   button: link.optional(),
   showWhatsapp: z.boolean().default(false),
+  showSchedule: z.boolean().default(false),
 });
 
 export const contactSection = z.object({
@@ -192,6 +221,7 @@ export const contactSection = z.object({
   title: z.string().min(1),
   intro: z.string().optional(),
   showWhatsapp: z.boolean().default(true),
+  showSchedule: z.boolean().default(true),
   showSocial: z.boolean().default(true),
 });
 
@@ -200,6 +230,7 @@ export const sectionSchema = z.discriminatedUnion('type', [
   servicesSection,
   projectsSection,
   processSection,
+  pricingSection,
   testimonialsSection,
   textSection,
   faqSection,

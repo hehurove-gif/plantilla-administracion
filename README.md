@@ -30,7 +30,7 @@ content/            Fuente única de contenido (JSON)
   site.json, navigation.json, theme.json
   pages/*.json      Una página por archivo (slug = nombre de archivo; home = "/")
   collections/      services.json, projects.json, testimonials.json
-public/social/      Íconos de redes (WhatsApp, Instagram, X, TikTok, Discord)
+public/social/      Íconos de redes (WhatsApp, Instagram, X, LinkedIn, TikTok, Discord)
 src/
   schemas/          Esquemas Zod (contrato del contenido)
   content/          validate.ts (puro) + loader.ts (import.meta.glob)

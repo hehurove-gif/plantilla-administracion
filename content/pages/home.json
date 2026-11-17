@@ -23,7 +23,8 @@
         "Texto 7, sección Hero (etiqueta 1)",
         "Texto 7, sección Hero (etiqueta 2)",
         "Texto 7, sección Hero (etiqueta 3)"
-      ]
+      ],
+      "titleHighlight": "Texto 8, sección Hero (resaltado)"
     },
     {
       "type": "services",
@@ -61,6 +62,63 @@
         {
           "title": "Texto 3, sección Proceso (paso 4)",
           "text": "Texto 4, sección Proceso (paso 4)"
+        }
+      ]
+    },
+    {
+      "type": "pricing",
+      "id": "precios",
+      "eyebrow": "Texto 1, sección Precios",
+      "title": "Texto 2, sección Precios",
+      "intro": "Texto 3, sección Precios",
+      "plans": [
+        {
+          "name": "Texto 4, sección Precios (plan 1)",
+          "description": "Texto 5, sección Precios (plan 1)",
+          "price": "Texto 6, plan 1",
+          "period": "Texto 7, plan 1",
+          "features": [
+            "Texto 8, sección Precios (plan 1, punto 1)",
+            "Texto 8, sección Precios (plan 1, punto 2)",
+            "Texto 8, sección Precios (plan 1, punto 3)"
+          ],
+          "highlighted": false,
+          "cta": {
+            "label": "Texto 9, sección Precios (plan 1, botón)",
+            "href": "/contact"
+          }
+        },
+        {
+          "name": "Texto 4, sección Precios (plan 2)",
+          "description": "Texto 5, sección Precios (plan 2)",
+          "price": "Texto 6, plan 2",
+          "period": "Texto 7, plan 2",
+          "features": [
+            "Texto 8, sección Precios (plan 2, punto 1)",
+            "Texto 8, sección Precios (plan 2, punto 2)",
+            "Texto 8, sección Precios (plan 2, punto 3)"
+          ],
+          "highlighted": true,
+          "cta": {
+            "label": "Texto 9, sección Precios (plan 2, botón)",
+            "href": "/contact"
+          }
+        },
+        {
+          "name": "Texto 4, sección Precios (plan 3)",
+          "description": "Texto 5, sección Precios (plan 3)",
+          "price": "Texto 6, plan 3",
+          "period": "Texto 7, plan 3",
+          "features": [
+            "Texto 8, sección Precios (plan 3, punto 1)",
+            "Texto 8, sección Precios (plan 3, punto 2)",
+            "Texto 8, sección Precios (plan 3, punto 3)"
+          ],
+          "highlighted": false,
+          "cta": {
+            "label": "Texto 9, sección Precios (plan 3, botón)",
+            "href": "/contact"
+          }
         }
       ]
     },
@@ -111,7 +169,8 @@
       "button": {
         "label": "Texto 4, sección Llamada a la acción (botón)",
         "href": "/contact"
-      }
+      },
+      "showSchedule": true
     }
   ]
 }

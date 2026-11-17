@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { ContentError, validateContent, type RawContent } from '../src/content/validate';
 import { loadContent } from '../src/content/loader';
 import { themeToCss } from '../src/themes/applyTheme';
 import { whatsappLink } from '../src/utils/whatsapp';
+import { socialNetworks } from '../src/schemas';
 
 const read = (rel: string) => JSON.parse(readFileSync(join(process.cwd(), rel), 'utf8'));
 
@@ -156,6 +157,52 @@ describe('datos inválidos producen errores claros', () => {
     (raw.site as Any).name = '';
     (raw.theme as Any).light.text = 'x';
     expect(issuesOf(raw).length).toBeGreaterThanOrEqual(2);
+  });
+});
+
+describe('LinkedIn, precios y agendar llamada', () => {
+  it('LinkedIn está entre las redes y tiene su ícono', () => {
+    const { social } = validateContent(realRaw()).site;
+    expect(social.some((x) => x.network === 'linkedin' && x.url.startsWith('https://www.linkedin.com/in/'))).toBe(true);
+    expect(existsSync(join(process.cwd(), 'public/social/linkedin.png'))).toBe(true);
+  });
+
+  it('todas las redes configurables tienen ícono en public/social', () => {
+    for (const n of socialNetworks) expect(existsSync(join(process.cwd(), `public/social/${n}.png`))).toBe(true);
+  });
+
+  it('la portada incluye una sección de precios con un plan destacado', () => {
+    const home = validateContent(realRaw()).pages.find((p) => p.slug === 'home')!;
+    const pricing = home.sections.find((s) => s.type === 'pricing') as Any;
+    expect(pricing.plans).toHaveLength(3);
+    expect(pricing.plans.filter((p: Any) => p.highlighted)).toHaveLength(1);
+  });
+
+  it('detecta botones de plan con enlaces internos rotos', () => {
+    const raw = clone(realRaw());
+    const pricing = (raw.pages.home as Any).sections.find((s: Any) => s.type === 'pricing');
+    pricing.plans[0].cta.href = '/no-existe';
+    expect(issuesOf(raw).some((i) => i.includes('"/no-existe"') && i.includes('pricing'))).toBe(true);
+  });
+
+  it('rechaza un plan sin precio', () => {
+    const raw = clone(realRaw());
+    const pricing = (raw.pages.home as Any).sections.find((s: Any) => s.type === 'pricing');
+    pricing.plans[0].price = '';
+    expect(issuesOf(raw).some((i) => i.includes('home.json'))).toBe(true);
+  });
+
+  it('el enlace de agendar acepta https o vacío, pero no otra cosa', () => {
+    const raw = clone(realRaw());
+    (raw.site as Any).contact.schedulingUrl = 'https://calendly.com/usuario/30min';
+    expect(issuesOf(raw)).toEqual([]);
+    (raw.site as Any).contact.schedulingUrl = 'calendly.com/usuario';
+    expect(issuesOf(raw).some((i) => i.includes('schedulingUrl'))).toBe(true);
+  });
+
+  it('acepta el resaltado del título del hero', () => {
+    const hero = validateContent(realRaw()).pages.find((p) => p.slug === 'home')!.sections[0] as Any;
+    expect(hero.titleHighlight).toContain('Texto 8');
   });
 });
 

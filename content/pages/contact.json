@@ -9,7 +9,8 @@
       "title": "Texto 2, sección Contacto",
       "intro": "Texto 3, sección Contacto",
       "showWhatsapp": true,
-      "showSocial": true
+      "showSocial": true,
+      "showSchedule": true
     }
   ]
 }

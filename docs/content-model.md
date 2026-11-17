@@ -12,7 +12,7 @@ Todo texto de ejemplo dice dónde está: **`Texto N, sección X`**. Por ejemplo,
 
 ## Archivos
 
-- `content/site.json`: nombre, descripción SEO, contacto, WhatsApp (`whatsapp` solo dígitos con código de país; vacío oculta todos los botones de WhatsApp), `social` (instagram, x, tiktok, discord) y textos del pie.
+- `content/site.json`: nombre, descripción SEO, contacto, WhatsApp (`whatsapp` solo dígitos con código de país; vacío oculta todos los botones de WhatsApp), `schedulingUrl` (Calendly o Google Calendar; vacío oculta el botón «agendar llamada»), `social` (instagram, x, linkedin, tiktok, discord) y textos del pie.
 - `content/navigation.json`: `items[{label, href}]`. Acepta rutas (`/about`) y anclas (`/#servicios`); ambas se validan.
 - `content/theme.json`: `mode` (`auto|dark|light`), paletas `dark` y `light` (hex) y `radius`. En `auto` sigue el modo del dispositivo.
 - `content/collections/services.json`, `projects.json`, `testimonials.json`: `items[]` con `id` único. Las secciones los **referencian** (no duplican datos).
@@ -24,23 +24,30 @@ Todas aceptan `id` (ancla, ej. `servicios` → `/#servicios`) y `eyebrow` (etiqu
 
 | type | Campos propios |
 | --- | --- |
-| `hero` | `title`, `subtitle?`, `image?`, `primaryCta?`, `secondaryCta?`, `showWhatsapp`, `tagsLabel?`, `tags[]` |
+| `hero` | `title`, `titleHighlight?` (palabra resaltada con degradado), `subtitle?`, `image?`, `primaryCta?`, `secondaryCta?`, `showWhatsapp`, `tagsLabel?`, `tags[]` |
 | `services` | `title`, `intro?`, `limit?` (colección de servicios) |
 | `projects` | `title`, `intro?`, `limit?`, `visitLabel` (colección de proyectos) |
+| `pricing` | `title`, `intro?`, `plans[{name, description?, price, period?, features[], highlighted, cta?}]` |
 | `process` | `title`, `steps[{title,text}]` |
 | `text` | `title?`, `paragraphs[]`, `image?` |
 | `testimonials` | `title`, `limit?` (colección de testimonios) |
 | `faq` | `title`, `items[{question,answer}]` |
-| `cta` | `title`, `text?`, `button?`, `showWhatsapp` |
-| `contact` | `title`, `intro?`, `showWhatsapp`, `showSocial` (datos de `site.json`) |
+| `cta` | `title`, `text?`, `button?`, `showWhatsapp`, `showSchedule` |
+| `contact` | `title`, `intro?`, `showWhatsapp`, `showSchedule`, `showSocial` (datos de `site.json`) |
 
 ## Redes e íconos
 
-Los íconos están en `public/social/<red>.png` (whatsapp, instagram, x, tiktok, discord). WhatsApp se genera desde `site.contact.whatsapp`; las demás, desde `site.social`. Para ocultar una red, quítala de la lista.
+Los íconos están en `public/social/<red>.png` (whatsapp, instagram, x, linkedin, tiktok, discord). WhatsApp se genera desde `site.contact.whatsapp`; las demás, desde `site.social`. Para ocultar una red, quítala de la lista.
+
+Íconos disponibles en servicios: `code`, `palette`, `chart`, `shield`, `rocket`, `chat`, `bolt`, `mobile`, `settings`. El ícono de LinkedIn es el glifo de Bootstrap Icons (MIT) en azul de LinkedIn; si prefieres el oficial, reemplaza `public/social/linkedin.png` conservando el nombre.
+
+## Origen de algunas secciones
+
+Precios, resaltado del título, botón de agendar llamada y los íconos `bolt`/`mobile`/`settings` se tomaron como idea de una plantilla de referencia (VibeCoding). **No** se trajo su formulario de contacto, panel admin, PayPal, Resend ni Google Sheets, porque requieren backend, fuera del alcance del MVP. El botón de cada plan puede apuntar a un enlace externo (por ejemplo, un PayPal.me o WhatsApp).
 
 ## Validaciones adicionales
 
-Slug = nombre de archivo, existe `home`, ids de colección y de sección únicos, enlaces internos (menú y botones) apuntan a páginas y anclas existentes, colecciones no vacías si se usan, e imágenes locales existentes en `public/` (script).
+Slug = nombre de archivo, existe `home`, ids de colección y de sección únicos, enlaces internos (menú, botones y planes de precios) apuntan a páginas y anclas existentes, colecciones no vacías si se usan, e imágenes locales existentes en `public/` (script).
 
 ## Agregar un tipo de sección
 

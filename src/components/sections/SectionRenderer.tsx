@@ -3,6 +3,7 @@ import { Hero } from './Hero';
 import { Services } from './Services';
 import { Projects } from './Projects';
 import { Process } from './Process';
+import { Pricing } from './Pricing';
 import { Testimonials } from './Testimonials';
 import { TextBlock } from './TextBlock';
 import { Faq } from './Faq';
@@ -19,6 +20,8 @@ function renderSection(section: Section) {
       return <Projects {...section} />;
     case 'process':
       return <Process {...section} />;
+    case 'pricing':
+      return <Pricing {...section} />;
     case 'testimonials':
       return <Testimonials {...section} />;
     case 'text':

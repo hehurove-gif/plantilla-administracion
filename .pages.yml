@@ -41,6 +41,12 @@ content:
     - name: whatsappLabel
       label: 'Texto 3 · Encabezado: texto del botón de WhatsApp'
       type: string
+    - name: schedulingUrl
+      label: Enlace para agendar llamada (Calendly, Google Calendar... https://...; vacío = se oculta el botón)
+      type: string
+    - name: schedulingLabel
+      label: 'Texto 5 · Contacto: texto del botón de agendar llamada'
+      type: string
   - name: social
     label: Redes sociales (quita una para ocultarla)
     type: object
@@ -54,6 +60,8 @@ content:
           label: Instagram
         - name: x
           label: X
+        - name: linkedin
+          label: LinkedIn
         - name: tiktok
           label: TikTok
         - name: discord
@@ -256,6 +264,12 @@ content:
           label: Cohete
         - name: chat
           label: Chat
+        - name: bolt
+          label: Rayo
+        - name: mobile
+          label: Móvil
+        - name: settings
+          label: Ajustes
     - name: price
       label: 'Texto 6 · Servicios: precio (opcional)'
       type: string
@@ -362,6 +376,9 @@ content:
         label: Texto 2 · Título
         type: string
         required: true
+      - name: titleHighlight
+        label: Texto 8 · Palabra resaltada al final del título (opcional)
+        type: string
       - name: subtitle
         label: Texto 3 · Subtítulo
         type: text
@@ -459,6 +476,56 @@ content:
           type: text
           required: true
         list: true
+    - name: pricing
+      label: Precios (planes)
+      fields:
+      - *id001
+      - name: eyebrow
+        label: Texto 1 · Etiqueta superior
+        type: string
+      - name: title
+        label: Texto 2 · Título
+        type: string
+        required: true
+      - name: intro
+        label: Texto 3 · Introducción
+        type: text
+      - name: plans
+        label: Planes (marca uno como destacado)
+        type: object
+        fields:
+        - name: name
+          label: Texto 4 · Nombre del plan
+          type: string
+          required: true
+        - name: description
+          label: Texto 5 · Descripción del plan
+          type: string
+        - name: price
+          label: Texto 6 · Precio
+          type: string
+          required: true
+        - name: period
+          label: Texto 7 · Periodo (ej. /mes)
+          type: string
+        - name: features
+          label: Texto 8 · Características incluidas
+          type: string
+          list: true
+        - name: highlighted
+          label: Plan destacado
+          type: boolean
+        - name: cta
+          label: Texto 9 · Botón del plan
+          type: object
+          fields:
+          - name: label
+            label: Texto del botón
+            type: string
+          - name: href
+            label: Enlace (/ruta, /ruta#ancla o https://...)
+            type: string
+        list: true
     - name: text
       label: Texto (sobre nosotros)
       fields:
@@ -542,6 +609,9 @@ content:
       - name: showWhatsapp
         label: Mostrar botón de WhatsApp
         type: boolean
+      - name: showSchedule
+        label: Mostrar botón de agendar llamada
+        type: boolean
     - name: contact
       label: Contacto
       fields:
@@ -558,6 +628,9 @@ content:
         type: text
       - name: showWhatsapp
         label: Mostrar botón de WhatsApp
+        type: boolean
+      - name: showSchedule
+        label: Mostrar botón de agendar llamada
         type: boolean
       - name: showSocial
         label: Mostrar íconos de redes

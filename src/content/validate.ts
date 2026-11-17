@@ -114,6 +114,11 @@ export function validateContent(raw: RawContent): ContentBundle {
         if (section.primaryCta) checkInternal(`${where} → hero`, section.primaryCta.href);
         if (section.secondaryCta) checkInternal(`${where} → hero`, section.secondaryCta.href);
       }
+      if (section.type === 'pricing') {
+        for (const plan of section.plans) {
+          if (plan.cta) checkInternal(`${where} → pricing (${plan.name})`, plan.cta.href);
+        }
+      }
       if (section.type === 'cta' && section.button) checkInternal(`${where} → cta`, section.button.href);
     }
   }

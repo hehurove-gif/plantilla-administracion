@@ -2,12 +2,13 @@ import type { Section } from '@/types/content';
 import { content } from '@/content/loader';
 import { SectionShell } from '@/components/ui/SectionShell';
 import { SocialIcons } from '@/components/ui/SocialIcons';
+import { ScheduleButton } from '@/components/ui/ScheduleButton';
 import { WhatsappButton } from '@/components/ui/WhatsappButton';
 
 type Props = Extract<Section, { type: 'contact' }>;
 
 /** Muestra los datos de contacto de site.json (única fuente de verdad). */
-export function Contact({ eyebrow, title, intro, showWhatsapp, showSocial }: Props) {
+export function Contact({ eyebrow, title, intro, showWhatsapp, showSchedule, showSocial }: Props) {
   const { contact } = content.site;
   return (
     <SectionShell eyebrow={eyebrow} title={title} intro={intro} className="border-t border-line">
@@ -38,9 +39,10 @@ export function Contact({ eyebrow, title, intro, showWhatsapp, showSocial }: Pro
             </div>
           )}
         </dl>
-        {(showWhatsapp || showSocial) && (
+        {(showWhatsapp || showSchedule || showSocial) && (
           <div className="mt-6 flex flex-wrap items-center gap-4">
             {showWhatsapp && <WhatsappButton />}
+            {showSchedule && <ScheduleButton />}
             {showSocial && <SocialIcons />}
           </div>
         )}

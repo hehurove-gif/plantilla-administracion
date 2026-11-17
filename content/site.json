@@ -7,7 +7,9 @@
     "address": "Texto 4, sección Contacto (ubicación)",
     "whatsapp": "520000000000",
     "whatsappMessage": "Texto 1, mensaje de WhatsApp",
-    "whatsappLabel": "Texto 3, WhatsApp"
+    "whatsappLabel": "Texto 3, WhatsApp",
+    "schedulingUrl": "",
+    "schedulingLabel": "Texto 5, sección Contacto (botón agendar)"
   },
   "social": [
     {
@@ -17,6 +19,10 @@
     {
       "network": "x",
       "url": "https://x.com/usuario"
+    },
+    {
+      "network": "linkedin",
+      "url": "https://www.linkedin.com/in/romero-velazquez-h-6939a73b1/"
     },
     {
       "network": "tiktok",
