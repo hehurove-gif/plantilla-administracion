@@ -1,27 +1,47 @@
 import type { Theme } from '@/types/content';
 
+type Palette = Theme['dark'];
+
 const RADIUS: Record<Theme['radius'], string> = {
   none: '0',
-  sm: '0.25rem',
-  md: '0.5rem',
-  lg: '0.75rem',
-  xl: '1.25rem',
+  sm: '0.375rem',
+  md: '0.625rem',
+  lg: '1rem',
+  xl: '1.5rem',
 };
 
-/** Traduce theme.json a variables CSS. Sin lógica de negocio: solo presentación. */
-export function themeToCssVars(theme: Theme): Record<string, string> {
-  const c = theme.colors;
-  return {
-    '--c-primary': c.primary,
-    '--c-primary-contrast': c.primaryContrast,
-    '--c-background': c.background,
-    '--c-surface': c.surface,
-    '--c-text': c.text,
-    '--c-muted': c.muted,
-    '--r-theme': RADIUS[theme.radius],
-  };
+const paletteVars = (p: Palette, scheme: 'dark' | 'light'): string =>
+  [
+    `--c-bg:${p.background}`,
+    `--c-bg-soft:${p.backgroundSoft}`,
+    `--c-surface:${p.surface}`,
+    `--c-line:${p.line}`,
+    `--c-text:${p.text}`,
+    `--c-muted:${p.muted}`,
+    `--c-primary:${p.primary}`,
+    `--c-secondary:${p.secondary}`,
+    `--c-on-primary:${p.onPrimary}`,
+    `--glow:${scheme === 'dark' ? '22%' : '12%'}`,
+    `color-scheme:${scheme}`,
+  ].join(';');
+
+/** Traduce theme.json a CSS. `auto` sigue el modo claro/oscuro del dispositivo. */
+export function themeToCss(theme: Theme): string {
+  const radius = `--r-theme:${RADIUS[theme.radius]}`;
+  if (theme.mode === 'dark') return `:root{${paletteVars(theme.dark, 'dark')};${radius}}`;
+  if (theme.mode === 'light') return `:root{${paletteVars(theme.light, 'light')};${radius}}`;
+  return (
+    `:root{${paletteVars(theme.dark, 'dark')};${radius}}` +
+    `@media (prefers-color-scheme: light){:root{${paletteVars(theme.light, 'light')}}}`
+  );
 }
 
-export function applyTheme(theme: Theme, el: HTMLElement = document.documentElement) {
-  for (const [k, v] of Object.entries(themeToCssVars(theme))) el.style.setProperty(k, v);
+export function applyTheme(theme: Theme) {
+  let el = document.getElementById('theme-vars') as HTMLStyleElement | null;
+  if (!el) {
+    el = document.createElement('style');
+    el.id = 'theme-vars';
+    document.head.appendChild(el);
+  }
+  el.textContent = themeToCss(theme);
 }

@@ -1,12 +1,15 @@
 {
   "slug": "contact",
-  "title": "Contacto",
-  "description": "Ponte en contacto",
+  "title": "Texto 1, página Contacto",
+  "description": "Texto 2, página Contacto",
   "sections": [
     {
       "type": "contact",
-      "title": "Hablemos",
-      "intro": "Escríbenos y te respondemos lo antes posible."
+      "eyebrow": "Texto 1, sección Contacto",
+      "title": "Texto 2, sección Contacto",
+      "intro": "Texto 3, sección Contacto",
+      "showWhatsapp": true,
+      "showSocial": true
     }
   ]
 }

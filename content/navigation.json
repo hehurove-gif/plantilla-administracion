@@ -1,7 +1,20 @@
 {
   "items": [
-    { "label": "Inicio", "href": "/" },
-    { "label": "Nosotros", "href": "/about" },
-    { "label": "Contacto", "href": "/contact" }
+    {
+      "label": "Texto 2, Menú 1",
+      "href": "/#servicios"
+    },
+    {
+      "label": "Texto 2, Menú 2",
+      "href": "/#proyectos"
+    },
+    {
+      "label": "Texto 2, Menú 3",
+      "href": "/about"
+    },
+    {
+      "label": "Texto 2, Menú 4",
+      "href": "/contact"
+    }
   ]
 }

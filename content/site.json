@@ -1,21 +1,37 @@
 {
-  "name": "Estudio Ejemplo",
-  "tagline": "Soluciones digitales para tu negocio",
-  "description": "Sitio de ejemplo de la plantilla Jamstack: servicios profesionales con contenido editable.",
+  "name": "Texto 1, Encabezado",
+  "description": "Texto 1, descripción SEO del sitio",
   "contact": {
-    "email": "hehurove@gmail.com",
-    "phone": "+52 7204558369",
-    "address": "Ciudad de México, México"
+    "email": "correo@ejemplo.com",
+    "phone": "+52 00 0000 0000",
+    "address": "Texto 4, sección Contacto (ubicación)",
+    "whatsapp": "520000000000",
+    "whatsappMessage": "Texto 1, mensaje de WhatsApp",
+    "whatsappLabel": "Texto 3, WhatsApp"
   },
   "social": [
     {
-      "label": "GitHub",
-      "href": "https://github.com/hehurove-gif"
+      "network": "instagram",
+      "url": "https://www.instagram.com/usuario/"
     },
     {
-      "label": "LinkedIn",
-      "href": "https://www.linkedin.com/in/romero-velazquez-h-6939a73b1/"
+      "network": "x",
+      "url": "https://x.com/usuario"
+    },
+    {
+      "network": "tiktok",
+      "url": "https://www.tiktok.com/@usuario"
+    },
+    {
+      "network": "discord",
+      "url": "https://discord.gg/invitacion"
     }
   ],
-  "footerText": "© 2026 Estudio Ejemplo. Todos los derechos reservados."
+  "footer": {
+    "tagline": "Texto 1, sección Pie de página",
+    "blurb": "Texto 2, sección Pie de página",
+    "navTitle": "Texto 3, sección Pie de página",
+    "contactTitle": "Texto 4, sección Pie de página",
+    "rights": "Texto 5, sección Pie de página"
+  }
 }

@@ -3,7 +3,8 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { ContentError, validateContent, type RawContent } from '../src/content/validate';
 import { loadContent } from '../src/content/loader';
-import { themeToCssVars } from '../src/themes/applyTheme';
+import { themeToCss } from '../src/themes/applyTheme';
+import { whatsappLink } from '../src/utils/whatsapp';
 
 const read = (rel: string) => JSON.parse(readFileSync(join(process.cwd(), rel), 'utf8'));
 
@@ -17,6 +18,7 @@ function realRaw(): RawContent {
     navigation: read('content/navigation.json'),
     theme: read('content/theme.json'),
     services: read('content/collections/services.json'),
+    projects: read('content/collections/projects.json'),
     testimonials: read('content/collections/testimonials.json'),
     pages,
   };
@@ -34,24 +36,35 @@ function issuesOf(raw: RawContent): string[] {
   return [];
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Any = any;
+
 describe('contenido de ejemplo', () => {
   it('es válido', () => {
     const bundle = validateContent(realRaw());
     expect(bundle.pages.map((p) => p.slug).sort()).toEqual(['about', 'contact', 'home']);
     expect(bundle.services.length).toBeGreaterThan(0);
+    expect(bundle.projects.length).toBeGreaterThan(0);
+  });
+
+  it('los textos de ejemplo siguen el formato "Texto N, sección X"', () => {
+    const home = validateContent(realRaw()).pages.find((p) => p.slug === 'home')!;
+    const hero = home.sections[0] as Any;
+    expect(hero.eyebrow).toBe('Texto 1, sección Hero');
+    expect(hero.title).toBe('Texto 2, sección Hero');
   });
 
   it('el cargador de Vite produce el mismo contenido válido', () => {
+    const raw = realRaw();
     const modules: Record<string, unknown> = {
-      '/content/site.json': read('content/site.json'),
-      '/content/navigation.json': read('content/navigation.json'),
-      '/content/theme.json': read('content/theme.json'),
-      '/content/collections/services.json': read('content/collections/services.json'),
-      '/content/collections/testimonials.json': read('content/collections/testimonials.json'),
-      '/content/pages/home.json': read('content/pages/home.json'),
-      '/content/pages/about.json': read('content/pages/about.json'),
-      '/content/pages/contact.json': read('content/pages/contact.json'),
+      '/content/site.json': raw.site,
+      '/content/navigation.json': raw.navigation,
+      '/content/theme.json': raw.theme,
+      '/content/collections/services.json': raw.services,
+      '/content/collections/projects.json': raw.projects,
+      '/content/collections/testimonials.json': raw.testimonials,
     };
+    for (const [name, data] of Object.entries(raw.pages)) modules[`/content/pages/${name}.json`] = data;
     expect(loadContent(modules).pages).toHaveLength(3);
   });
 });
@@ -59,26 +72,39 @@ describe('contenido de ejemplo', () => {
 describe('datos inválidos producen errores claros', () => {
   it('reporta el archivo y el campo cuando falta un dato requerido', () => {
     const raw = realRaw();
-    (raw.site as { name?: string }).name = '';
-    const issues = issuesOf(raw);
-    expect(issues.some((i) => i.includes('content/site.json') && i.includes('name'))).toBe(true);
+    (raw.site as Any).name = '';
+    expect(issuesOf(raw).some((i) => i.includes('content/site.json') && i.includes('name'))).toBe(true);
   });
 
   it('rechaza un tipo de sección desconocido', () => {
     const raw = clone(realRaw());
-    (raw.pages.home as { sections: unknown[] }).sections.push({ type: 'carrusel' });
+    (raw.pages.home as Any).sections.push({ type: 'carrusel' });
     expect(issuesOf(raw).some((i) => i.includes('content/pages/home.json'))).toBe(true);
   });
 
   it('rechaza colores que no son hexadecimales', () => {
     const raw = clone(realRaw());
-    (raw.theme as { colors: { primary: string } }).colors.primary = 'azul';
-    expect(issuesOf(raw).some((i) => i.includes('theme.json') && i.includes('colors.primary'))).toBe(true);
+    (raw.theme as Any).dark.primary = 'azul';
+    expect(issuesOf(raw).some((i) => i.includes('theme.json') && i.includes('dark.primary'))).toBe(true);
+  });
+
+  it('rechaza un número de WhatsApp con formato inválido, pero acepta vacío', () => {
+    const raw = clone(realRaw());
+    (raw.site as Any).contact.whatsapp = '+52 55 1234';
+    expect(issuesOf(raw).some((i) => i.includes('whatsapp'))).toBe(true);
+    (raw.site as Any).contact.whatsapp = '';
+    expect(issuesOf(raw)).toEqual([]);
+  });
+
+  it('rechaza redes que no tienen ícono disponible', () => {
+    const raw = clone(realRaw());
+    (raw.site as Any).social.push({ network: 'myspace', url: 'https://myspace.com/x' });
+    expect(issuesOf(raw).some((i) => i.includes('social'))).toBe(true);
   });
 
   it('exige que el slug coincida con el nombre del archivo', () => {
     const raw = clone(realRaw());
-    (raw.pages.about as { slug: string }).slug = 'otro';
+    (raw.pages.about as Any).slug = 'otro';
     expect(issuesOf(raw).some((i) => i.includes('debe coincidir con el nombre del archivo'))).toBe(true);
   });
 
@@ -90,35 +116,69 @@ describe('datos inválidos producen errores claros', () => {
 
   it('detecta enlaces de navegación a páginas inexistentes', () => {
     const raw = clone(realRaw());
-    (raw.navigation as { items: { label: string; href: string }[] }).items.push({ label: 'Blog', href: '/blog' });
+    (raw.navigation as Any).items.push({ label: 'Blog', href: '/blog' });
     expect(issuesOf(raw).some((i) => i.includes('"/blog"'))).toBe(true);
+  });
+
+  it('detecta anclas que no existen en la página', () => {
+    const raw = clone(realRaw());
+    (raw.navigation as Any).items.push({ label: 'X', href: '/#no-existe' });
+    expect(issuesOf(raw).some((i) => i.includes('no-existe'))).toBe(true);
+  });
+
+  it('detecta botones con enlaces internos rotos', () => {
+    const raw = clone(realRaw());
+    (raw.pages.home as Any).sections[0].primaryCta.href = '/nada';
+    expect(issuesOf(raw).some((i) => i.includes('"/nada"'))).toBe(true);
+  });
+
+  it('detecta ids de sección duplicados', () => {
+    const raw = clone(realRaw());
+    (raw.pages.home as Any).sections[1].id = 'inicio';
+    expect(issuesOf(raw).some((i) => i.includes('id de sección duplicado'))).toBe(true);
   });
 
   it('detecta ids duplicados en colecciones', () => {
     const raw = clone(realRaw());
-    const items = (raw.services as { items: { id: string }[] }).items;
+    const items = (raw.projects as Any).items;
     items.push({ ...items[0] });
     expect(issuesOf(raw).some((i) => i.includes('id duplicado'))).toBe(true);
   });
 
   it('rechaza enlaces con formato inválido', () => {
     const raw = clone(realRaw());
-    (raw.navigation as { items: { href: string }[] }).items[0].href = 'inicio';
+    (raw.navigation as Any).items[0].href = 'inicio';
     expect(issuesOf(raw).length).toBeGreaterThan(0);
   });
 
   it('acumula todos los errores en una sola pasada', () => {
     const raw = clone(realRaw());
-    (raw.site as { name?: string }).name = '';
-    (raw.theme as { colors: { text: string } }).colors.text = 'x';
+    (raw.site as Any).name = '';
+    (raw.theme as Any).light.text = 'x';
     expect(issuesOf(raw).length).toBeGreaterThanOrEqual(2);
   });
 });
 
 describe('tema', () => {
-  it('convierte theme.json en variables CSS', () => {
-    const vars = themeToCssVars(validateContent(realRaw()).theme);
-    expect(vars['--c-primary']).toBe('#4f46e5');
-    expect(vars['--r-theme']).toBe('0.75rem');
+  it('modo auto genera oscuro por defecto y claro según el dispositivo', () => {
+    const css = themeToCss(validateContent(realRaw()).theme);
+    expect(css).toContain('--c-primary:#22d3ee');
+    expect(css).toContain('@media (prefers-color-scheme: light)');
+    expect(css).toContain('--c-primary:#0e7490');
+  });
+
+  it('modo oscuro fijo no incluye la paleta clara', () => {
+    const theme = { ...validateContent(realRaw()).theme, mode: 'dark' as const };
+    expect(themeToCss(theme)).not.toContain('prefers-color-scheme');
+  });
+});
+
+describe('whatsapp', () => {
+  it('arma el enlace con el mensaje codificado', () => {
+    expect(whatsappLink('5215512345678', 'Hola mundo')).toBe('https://wa.me/5215512345678?text=Hola%20mundo');
+  });
+  it('devuelve null si el número está vacío o es inválido', () => {
+    expect(whatsappLink('')).toBeNull();
+    expect(whatsappLink('123')).toBeNull();
   });
 });

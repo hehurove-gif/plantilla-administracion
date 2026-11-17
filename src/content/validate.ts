@@ -2,6 +2,7 @@ import type { z } from 'zod';
 import {
   navigationSchema,
   pageSchema,
+  projectsCollectionSchema,
   servicesCollectionSchema,
   siteSchema,
   testimonialsCollectionSchema,
@@ -15,6 +16,7 @@ export interface RawContent {
   navigation: unknown;
   theme: unknown;
   services: unknown;
+  projects: unknown;
   testimonials: unknown;
   /** Clave: nombre de archivo sin extensión (ej. "home", "about"). */
   pages: Record<string, unknown>;
@@ -49,6 +51,7 @@ export function validateContent(raw: RawContent): ContentBundle {
   const navigation = parse(navigationSchema, raw.navigation, 'content/navigation.json', issues);
   const theme = parse(themeSchema, raw.theme, 'content/theme.json', issues);
   const services = parse(servicesCollectionSchema, raw.services, 'content/collections/services.json', issues);
+  const projects = parse(projectsCollectionSchema, raw.projects, 'content/collections/projects.json', issues);
   const testimonials = parse(
     testimonialsCollectionSchema,
     raw.testimonials,
@@ -74,6 +77,7 @@ export function validateContent(raw: RawContent): ContentBundle {
   // Ids únicos por colección
   for (const [label, items] of [
     ['services', services?.items],
+    ['projects', projects?.items],
     ['testimonials', testimonials?.items],
   ] as const) {
     const seen = new Set<string>();
@@ -83,11 +87,34 @@ export function validateContent(raw: RawContent): ContentBundle {
     }
   }
 
-  // Los enlaces internos de la navegación deben apuntar a páginas existentes
+  // Los enlaces internos (en navegación y botones) deben apuntar a páginas y anclas existentes
   const routes = new Set(pages.map((p) => routeForSlug(p.slug)));
-  for (const item of navigation?.items ?? []) {
-    if (item.href.startsWith('/') && !routes.has(item.href)) {
-      issues.push(`content/navigation.json → "${item.label}": la ruta "${item.href}" no corresponde a ninguna página`);
+  const anchorsByRoute = new Map(
+    pages.map((p) => [routeForSlug(p.slug), new Set(p.sections.flatMap((s) => (s.id ? [s.id] : [])))]),
+  );
+  const checkInternal = (where: string, to: string) => {
+    if (!to.startsWith('/')) return;
+    const [path, anchor] = to.split('#');
+    if (!routes.has(path)) {
+      issues.push(`${where}: la ruta "${path}" no corresponde a ninguna página`);
+    } else if (anchor && !anchorsByRoute.get(path)?.has(anchor)) {
+      issues.push(`${where}: la página "${path}" no tiene ninguna sección con id "${anchor}"`);
+    }
+  };
+  for (const item of navigation?.items ?? []) checkInternal(`content/navigation.json → "${item.label}"`, item.href);
+  for (const page of pages) {
+    const where = `content/pages/${page.slug}.json`;
+    const ids = new Set<string>();
+    for (const section of page.sections) {
+      if (section.id) {
+        if (ids.has(section.id)) issues.push(`${where}: id de sección duplicado "${section.id}"`);
+        ids.add(section.id);
+      }
+      if (section.type === 'hero') {
+        if (section.primaryCta) checkInternal(`${where} → hero`, section.primaryCta.href);
+        if (section.secondaryCta) checkInternal(`${where} → hero`, section.secondaryCta.href);
+      }
+      if (section.type === 'cta' && section.button) checkInternal(`${where} → cta`, section.button.href);
     }
   }
 
@@ -97,13 +124,16 @@ export function validateContent(raw: RawContent): ContentBundle {
       if (section.type === 'services' && services && services.items.length === 0) {
         issues.push(`content/pages/${page.slug}.json: la sección "services" no tiene servicios en la colección`);
       }
+      if (section.type === 'projects' && projects && projects.items.length === 0) {
+        issues.push(`content/pages/${page.slug}.json: la sección "projects" no tiene proyectos en la colección`);
+      }
       if (section.type === 'testimonials' && testimonials && testimonials.items.length === 0) {
         issues.push(`content/pages/${page.slug}.json: la sección "testimonials" no tiene testimonios en la colección`);
       }
     }
   }
 
-  if (issues.length > 0 || !site || !navigation || !theme || !services || !testimonials) {
+  if (issues.length > 0 || !site || !navigation || !theme || !services || !projects || !testimonials) {
     throw new ContentError(issues);
   }
 
@@ -112,6 +142,7 @@ export function validateContent(raw: RawContent): ContentBundle {
     navigation,
     theme,
     services: services.items,
+    projects: projects.items,
     testimonials: testimonials.items,
     pages,
   };

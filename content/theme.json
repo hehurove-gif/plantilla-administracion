@@ -1,11 +1,26 @@
 {
-  "colors": {
-    "primary": "#4f46e5",
-    "primaryContrast": "#ffffff",
-    "background": "#f8fafc",
-    "surface": "#ffffff",
-    "text": "#0f172a",
-    "muted": "#64748b"
+  "mode": "auto",
+  "dark": {
+    "background": "#0a0c10",
+    "backgroundSoft": "#0f1218",
+    "surface": "#12161e",
+    "line": "#232a37",
+    "text": "#e8eaf0",
+    "muted": "#98a1b3",
+    "primary": "#22d3ee",
+    "secondary": "#a78bfa",
+    "onPrimary": "#06121a"
   },
-  "radius": "lg"
+  "light": {
+    "background": "#f6f7fb",
+    "backgroundSoft": "#eef0f6",
+    "surface": "#ffffff",
+    "line": "#dde1ea",
+    "text": "#0e1220",
+    "muted": "#555e72",
+    "primary": "#0e7490",
+    "secondary": "#6d28d9",
+    "onPrimary": "#ffffff"
+  },
+  "radius": "xl"
 }

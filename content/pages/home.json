@@ -1,30 +1,117 @@
 {
   "slug": "home",
-  "title": "Inicio",
-  "description": "Página de inicio",
+  "title": "Texto 1, página Inicio",
+  "description": "Texto 2, página Inicio",
   "sections": [
     {
       "type": "hero",
-      "title": "Tu presencia en línea, sin complicaciones",
-      "subtitle": "Creamos sitios rápidos y fáciles de editar para que te enfoques en tu negocio.",
-      "image": "/images/hero.svg",
-      "primaryCta": { "label": "Contáctanos", "href": "/contact" },
-      "secondaryCta": { "label": "Conoce más", "href": "/about" }
+      "id": "inicio",
+      "showWhatsapp": true,
+      "eyebrow": "Texto 1, sección Hero",
+      "title": "Texto 2, sección Hero",
+      "subtitle": "Texto 3, sección Hero",
+      "primaryCta": {
+        "label": "Texto 4, sección Hero (botón 1)",
+        "href": "/#proyectos"
+      },
+      "secondaryCta": {
+        "label": "Texto 5, sección Hero (botón 2)",
+        "href": "/contact"
+      },
+      "tagsLabel": "Texto 6, sección Hero",
+      "tags": [
+        "Texto 7, sección Hero (etiqueta 1)",
+        "Texto 7, sección Hero (etiqueta 2)",
+        "Texto 7, sección Hero (etiqueta 3)"
+      ]
     },
     {
       "type": "services",
-      "title": "Lo que hacemos",
-      "intro": "Servicios pensados para negocios que quieren verse bien y funcionar mejor."
+      "id": "servicios",
+      "eyebrow": "Texto 1, sección Servicios",
+      "title": "Texto 2, sección Servicios",
+      "intro": "Texto 3, sección Servicios"
+    },
+    {
+      "type": "projects",
+      "id": "proyectos",
+      "eyebrow": "Texto 1, sección Proyectos",
+      "title": "Texto 2, sección Proyectos",
+      "intro": "Texto 3, sección Proyectos",
+      "visitLabel": "Texto 4, sección Proyectos"
+    },
+    {
+      "type": "process",
+      "id": "proceso",
+      "eyebrow": "Texto 1, sección Proceso",
+      "title": "Texto 2, sección Proceso",
+      "steps": [
+        {
+          "title": "Texto 3, sección Proceso (paso 1)",
+          "text": "Texto 4, sección Proceso (paso 1)"
+        },
+        {
+          "title": "Texto 3, sección Proceso (paso 2)",
+          "text": "Texto 4, sección Proceso (paso 2)"
+        },
+        {
+          "title": "Texto 3, sección Proceso (paso 3)",
+          "text": "Texto 4, sección Proceso (paso 3)"
+        },
+        {
+          "title": "Texto 3, sección Proceso (paso 4)",
+          "text": "Texto 4, sección Proceso (paso 4)"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "nosotros",
+      "eyebrow": "Texto 1, sección Sobre nosotros",
+      "title": "Texto 2, sección Sobre nosotros",
+      "paragraphs": [
+        "Texto 3, sección Sobre nosotros (párrafo 1)",
+        "Texto 3, sección Sobre nosotros (párrafo 2)",
+        "Texto 3, sección Sobre nosotros (párrafo 3)"
+      ]
     },
     {
       "type": "testimonials",
-      "title": "Lo que dicen nuestros clientes"
+      "id": "testimonios",
+      "eyebrow": "Texto 1, sección Testimonios",
+      "title": "Texto 2, sección Testimonios"
+    },
+    {
+      "type": "faq",
+      "id": "preguntas",
+      "eyebrow": "Texto 1, sección Preguntas",
+      "title": "Texto 2, sección Preguntas",
+      "items": [
+        {
+          "question": "Texto 3, sección Preguntas (pregunta 1)",
+          "answer": "Texto 4, sección Preguntas (pregunta 1)"
+        },
+        {
+          "question": "Texto 3, sección Preguntas (pregunta 2)",
+          "answer": "Texto 4, sección Preguntas (pregunta 2)"
+        },
+        {
+          "question": "Texto 3, sección Preguntas (pregunta 3)",
+          "answer": "Texto 4, sección Preguntas (pregunta 3)"
+        }
+      ]
     },
     {
       "type": "cta",
-      "title": "¿Listo para empezar?",
-      "text": "Cuéntanos tu idea y te proponemos un plan.",
-      "button": { "label": "Escríbenos", "href": "/contact" }
+      "id": "contacto",
+      "showWhatsapp": true,
+      "eyebrow": "Texto 1, sección Llamada a la acción",
+      "title": "Texto 2, sección Llamada a la acción",
+      "text": "Texto 3, sección Llamada a la acción",
+      "button": {
+        "label": "Texto 4, sección Llamada a la acción (botón)",
+        "href": "/contact"
+      }
     }
   ]
 }

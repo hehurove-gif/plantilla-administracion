@@ -19,13 +19,18 @@ Plantilla web reutilizable: **React + TypeScript + Vite + Tailwind**, con el con
 
 `wrangler.jsonc` sirve `dist/` como SPA. Deploy command: `npx wrangler deploy`. Build command: `npm run build`.
 
+## Textos de ejemplo
+
+Los textos dicen dónde están: `Texto 1, sección Hero`. En Pages CMS el campo se llama «Texto 1 · …», así sabes qué editar. Detalle en `docs/content-model.md`.
+
 ## Estructura
 
 ```
 content/            Fuente única de contenido (JSON)
   site.json, navigation.json, theme.json
   pages/*.json      Una página por archivo (slug = nombre de archivo; home = "/")
-  collections/      services.json, testimonials.json
+  collections/      services.json, projects.json, testimonials.json
+public/social/      Íconos de redes (WhatsApp, Instagram, X, TikTok, Discord)
 src/
   schemas/          Esquemas Zod (contrato del contenido)
   content/          validate.ts (puro) + loader.ts (import.meta.glob)

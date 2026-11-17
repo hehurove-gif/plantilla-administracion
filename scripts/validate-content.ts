@@ -34,6 +34,7 @@ const raw: RawContent = {
   navigation: readJson('content/navigation.json'),
   theme: readJson('content/theme.json'),
   services: readJson('content/collections/services.json'),
+  projects: readJson('content/collections/projects.json'),
   testimonials: readJson('content/collections/testimonials.json'),
   pages,
 };

@@ -1,0 +1,26 @@
+{
+  "items": [
+    {
+      "id": "proyecto-1",
+      "tag": "Texto 5, sección Proyectos (proyecto 1)",
+      "title": "Texto 6, sección Proyectos (proyecto 1)",
+      "text": "Texto 7, sección Proyectos (proyecto 1)",
+      "stack": [
+        "Texto 8, sección Proyectos (proyecto 1, etiqueta 1)",
+        "Texto 8, sección Proyectos (proyecto 1, etiqueta 2)"
+      ],
+      "url": "https://ejemplo.com"
+    },
+    {
+      "id": "proyecto-2",
+      "tag": "Texto 5, sección Proyectos (proyecto 2)",
+      "title": "Texto 6, sección Proyectos (proyecto 2)",
+      "text": "Texto 7, sección Proyectos (proyecto 2)",
+      "stack": [
+        "Texto 8, sección Proyectos (proyecto 2, etiqueta 1)",
+        "Texto 8, sección Proyectos (proyecto 2, etiqueta 2)"
+      ],
+      "url": "https://ejemplo.com"
+    }
+  ]
+}

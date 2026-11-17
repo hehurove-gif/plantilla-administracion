@@ -1,49 +1,68 @@
 import { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { content } from '@/content/loader';
+import { WhatsappButton } from '@/components/ui/WhatsappButton';
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const { site, navigation } = content;
 
-  const linkClass = ({ isActive }: { isActive: boolean }) =>
-    `rounded-theme px-3 py-2 text-sm font-medium transition hover:bg-ink/5 ${isActive ? 'text-primary' : 'text-ink'}`;
+  const base = 'whitespace-nowrap text-sm transition-colors hover:text-ink';
+  const linkClass = ({ isActive }: { isActive: boolean }) => `${base} ${isActive ? 'text-primary' : 'text-muted'}`;
+
+  /** Los enlaces con ancla (/#servicios) usan <Link>; las páginas normales marcan la ruta activa. */
+  const renderItem = (item: { label: string; href: string }, onClick?: () => void) =>
+    item.href.includes('#') ? (
+      <Link key={item.label} to={item.href} onClick={onClick} className={`${base} text-muted`}>
+        {item.label}
+      </Link>
+    ) : (
+      <NavLink key={item.label} to={item.href} end className={linkClass} onClick={onClick}>
+        {item.label}
+      </NavLink>
+    );
 
   return (
-    <header className="sticky top-0 z-20 border-b border-muted/20 bg-surface/90 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <Link to="/" className="text-lg font-bold text-ink">
+    <header className="sticky top-0 z-40 border-b border-line bg-bg/80 backdrop-blur">
+      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
+        <Link to="/" className="shrink-0 font-mono text-lg font-semibold">
+          <span className="text-primary">&lt;</span>
           {site.name}
+          <span className="text-secondary"> /&gt;</span>
         </Link>
 
-        <nav className="hidden gap-1 md:flex" aria-label="Principal">
-          {navigation.items.map((item) => (
-            <NavLink key={item.href} to={item.href} end className={linkClass}>
-              {item.label}
-            </NavLink>
-          ))}
+        <nav className="hidden items-center gap-6 lg:flex" aria-label="Principal">
+          {navigation.items.map((item) => renderItem(item))}
         </nav>
 
-        <button
-          type="button"
-          className="rounded-theme p-2 md:hidden"
-          aria-expanded={open}
-          aria-label="Abrir menú"
-          onClick={() => setOpen((v) => !v)}
-        >
-          <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d={open ? 'M6 6l12 12M18 6L6 18' : 'M4 7h16M4 12h16M4 17h16'} strokeLinecap="round" />
-          </svg>
-        </button>
+        <div className="flex items-center gap-3">
+          <div className="hidden sm:block">
+            <WhatsappButton />
+          </div>
+          <button
+            type="button"
+            className="rounded-md border border-line p-2 lg:hidden"
+            aria-expanded={open}
+            aria-label="Abrir menú"
+            onClick={() => setOpen((v) => !v)}
+          >
+            <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+              <path d={open ? 'M6 6l12 12M18 6L6 18' : 'M4 7h16M4 12h16M4 17h16'} />
+            </svg>
+          </button>
+        </div>
       </div>
 
       {open && (
-        <nav className="flex flex-col border-t border-muted/20 px-4 py-2 md:hidden" aria-label="Móvil">
-          {navigation.items.map((item) => (
-            <NavLink key={item.href} to={item.href} end className={linkClass} onClick={() => setOpen(false)}>
-              {item.label}
-            </NavLink>
-          ))}
+        <nav className="border-t border-line bg-bg lg:hidden" aria-label="Móvil">
+          <ul className="mx-auto flex max-w-6xl flex-col gap-1 px-5 py-3 sm:px-8 [&_a]:block [&_a]:py-2.5">
+            {navigation.items.map((item) => (
+              <li key={item.label}>{renderItem(item, () => setOpen(false))}</li>
+            ))}
+            <li className="pt-2 sm:hidden">
+              <WhatsappButton />
+            </li>
+          </ul>
         </nav>
       )}
     </header>

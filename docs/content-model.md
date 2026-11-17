@@ -2,32 +2,49 @@
 
 Los contratos viven en `src/schemas/index.ts` (Zod); los tipos TypeScript se infieren de ahí.
 
+## Convención de textos de ejemplo
+
+Todo texto de ejemplo dice dónde está: **`Texto N, sección X`**. Por ejemplo, «Texto 2, sección Hero» es el campo «Texto 2» del bloque Hero. En Pages CMS los campos se llaman igual («Texto 2 · Título»), así que se puede encontrar qué campo edita cada texto de la página.
+
+- Los elementos de una lista añaden el número entre paréntesis: `Texto 4, sección Servicios (tarjeta 2)`.
+- Las páginas distintas de Inicio añaden `, página X` al final.
+- Al personalizar un sitio de cliente se reemplazan por el texto real.
+
 ## Archivos
 
-- `content/site.json`: nombre, descripción, contacto (única fuente de datos de contacto), redes y pie.
-- `content/navigation.json`: `items[{label, href}]`. Los enlaces internos deben existir como página.
-- `content/theme.json`: colores hexadecimales y `radius` (`none|sm|md|lg|xl`). Se aplican como variables CSS.
-- `content/collections/services.json` y `testimonials.json`: `items[]` con `id` único. Las secciones los **referencian** (no duplican datos).
+- `content/site.json`: nombre, descripción SEO, contacto, WhatsApp (`whatsapp` solo dígitos con código de país; vacío oculta todos los botones de WhatsApp), `social` (instagram, x, tiktok, discord) y textos del pie.
+- `content/navigation.json`: `items[{label, href}]`. Acepta rutas (`/about`) y anclas (`/#servicios`); ambas se validan.
+- `content/theme.json`: `mode` (`auto|dark|light`), paletas `dark` y `light` (hex) y `radius`. En `auto` sigue el modo del dispositivo.
+- `content/collections/services.json`, `projects.json`, `testimonials.json`: `items[]` con `id` único. Las secciones los **referencian** (no duplican datos).
 - `content/pages/<slug>.json`: `slug` (igual al nombre del archivo; `home` = `/`), `title`, `description?`, `sections[]`.
 
 ## Secciones (`type`)
 
-| type | Campos |
+Todas aceptan `id` (ancla, ej. `servicios` → `/#servicios`) y `eyebrow` (etiqueta pequeña sobre el título).
+
+| type | Campos propios |
 | --- | --- |
-| `hero` | `title`, `subtitle?`, `image?`, `primaryCta?`, `secondaryCta?` |
-| `services` | `title`, `intro?`, `limit?` (usa la colección de servicios) |
-| `testimonials` | `title`, `limit?` (usa la colección de testimonios) |
-| `text` | `title?`, `paragraphs[]` |
-| `cta` | `title`, `text?`, `button{label,href}` |
-| `contact` | `title`, `intro?` (muestra los datos de `site.json`) |
+| `hero` | `title`, `subtitle?`, `image?`, `primaryCta?`, `secondaryCta?`, `showWhatsapp`, `tagsLabel?`, `tags[]` |
+| `services` | `title`, `intro?`, `limit?` (colección de servicios) |
+| `projects` | `title`, `intro?`, `limit?`, `visitLabel` (colección de proyectos) |
+| `process` | `title`, `steps[{title,text}]` |
+| `text` | `title?`, `paragraphs[]`, `image?` |
+| `testimonials` | `title`, `limit?` (colección de testimonios) |
+| `faq` | `title`, `items[{question,answer}]` |
+| `cta` | `title`, `text?`, `button?`, `showWhatsapp` |
+| `contact` | `title`, `intro?`, `showWhatsapp`, `showSocial` (datos de `site.json`) |
+
+## Redes e íconos
+
+Los íconos están en `public/social/<red>.png` (whatsapp, instagram, x, tiktok, discord). WhatsApp se genera desde `site.contact.whatsapp`; las demás, desde `site.social`. Para ocultar una red, quítala de la lista.
 
 ## Validaciones adicionales
 
-Slug = nombre de archivo, existe `home`, ids únicos, navegación apunta a páginas reales, colecciones no vacías si se usan, e imágenes locales existentes en `public/` (script).
+Slug = nombre de archivo, existe `home`, ids de colección y de sección únicos, enlaces internos (menú y botones) apuntan a páginas y anclas existentes, colecciones no vacías si se usan, e imágenes locales existentes en `public/` (script).
 
 ## Agregar un tipo de sección
 
 1. Esquema en `src/schemas/index.ts` y agregarlo a `sectionSchema`.
 2. Componente en `src/components/sections/`.
 3. Caso en `SectionRenderer.tsx` (TypeScript marca error si falta).
-4. Actualizar este documento y añadir pruebas.
+4. Bloque en `.pages.yml` y esta tabla; añadir pruebas.

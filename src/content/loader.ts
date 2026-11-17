@@ -17,6 +17,7 @@ export function collectRaw(modules: Record<string, unknown>): RawContent {
     navigation: modules['/content/navigation.json'],
     theme: modules['/content/theme.json'],
     services: modules['/content/collections/services.json'],
+    projects: modules['/content/collections/projects.json'],
     testimonials: modules['/content/collections/testimonials.json'],
     pages,
   };

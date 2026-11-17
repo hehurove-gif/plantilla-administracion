@@ -1,28 +1,28 @@
 {
   "items": [
     {
-      "id": "sitios-web",
-      "title": "Sitios web",
-      "description": "Páginas rápidas, responsivas y fáciles de mantener, listas para crecer con tu negocio.",
+      "id": "servicio-1",
+      "title": "Texto 4, sección Servicios (tarjeta 1)",
+      "description": "Texto 5, sección Servicios (tarjeta 1)",
       "icon": "code",
-      "price": "Desde $5,000 MXN"
+      "price": "Texto 6, sección Servicios (tarjeta 1)"
     },
     {
-      "id": "identidad",
-      "title": "Identidad visual",
-      "description": "Logotipo, paleta y lineamientos para que tu marca se vea coherente en todos lados.",
+      "id": "servicio-2",
+      "title": "Texto 4, sección Servicios (tarjeta 2)",
+      "description": "Texto 5, sección Servicios (tarjeta 2)",
       "icon": "palette"
     },
     {
-      "id": "analitica",
-      "title": "Analítica básica",
-      "description": "Mide visitas y rendimiento para tomar decisiones con datos reales.",
+      "id": "servicio-3",
+      "title": "Texto 4, sección Servicios (tarjeta 3)",
+      "description": "Texto 5, sección Servicios (tarjeta 3)",
       "icon": "chart"
     },
     {
-      "id": "mantenimiento",
-      "title": "Mantenimiento",
-      "description": "Actualizaciones, respaldos y mejoras continuas para que tu sitio siempre funcione.",
+      "id": "servicio-4",
+      "title": "Texto 4, sección Servicios (tarjeta 4)",
+      "description": "Texto 5, sección Servicios (tarjeta 4)",
       "icon": "shield"
     }
   ]

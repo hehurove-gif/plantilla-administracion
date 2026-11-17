@@ -1,321 +1,564 @@
 media:
   input: public/images
   output: /images
-  categories: [image]
-
+  categories:
+  - image
 content:
-  - name: site
-    label: Sitio
-    type: file
-    path: content/site.json
-    format: json
+- name: site
+  label: Sitio, contacto y pie de página
+  type: file
+  path: content/site.json
+  format: json
+  fields:
+  - name: name
+    label: 'Texto 1 · Encabezado: nombre del sitio'
+    type: string
+    required: true
+  - name: description
+    label: Texto 1 · Descripción SEO del sitio
+    type: text
+    required: true
+  - name: contact
+    label: Contacto
+    type: object
     fields:
-      - name: name
-        label: Nombre del sitio
-        type: string
-        required: true
-      - name: tagline
-        label: Lema
-        type: string
-      - name: description
-        label: Descripción
-        type: text
-        required: true
-      - name: contact
-        label: Contacto
-        type: object
-        fields:
-          - name: email
-            label: Correo
-            type: string
-            required: true
-          - name: phone
-            label: Teléfono
-            type: string
-          - name: address
-            label: Ubicación
-            type: string
-      - name: social
-        label: Redes sociales
-        type: object
-        list: true
-        fields:
-          - name: label
-            label: Nombre
-            type: string
-            required: true
-          - name: href
-            label: Enlace (https://...)
-            type: string
-            required: true
-      - name: footerText
-        label: Texto del pie
-        type: string
-        required: true
-
-  - name: navigation
-    label: Navegación
-    type: file
-    path: content/navigation.json
-    format: json
+    - name: email
+      label: Correo
+      type: string
+      required: true
+    - name: phone
+      label: Teléfono
+      type: string
+    - name: address
+      label: 'Texto 4 · Sección Contacto: ubicación'
+      type: string
+    - name: whatsapp
+      label: Número de WhatsApp (solo dígitos con código de país, ej. 5255XXXXXXXX; vacío = se ocultan los botones)
+      type: string
+    - name: whatsappMessage
+      label: Texto 1 · Mensaje de WhatsApp (viene escrito al abrir el chat)
+      type: text
+    - name: whatsappLabel
+      label: 'Texto 3 · Encabezado: texto del botón de WhatsApp'
+      type: string
+  - name: social
+    label: Redes sociales (quita una para ocultarla)
+    type: object
     fields:
-      - name: items
-        label: Enlaces del menú
-        type: object
-        list: true
-        fields:
-          - name: label
-            label: Texto
-            type: string
-            required: true
-          - name: href
-            label: Ruta (ej. / o /about)
-            type: string
-            required: true
-
-  - name: theme
-    label: Tema
-    type: file
-    path: content/theme.json
-    format: json
+    - name: network
+      label: Red
+      type: select
+      options:
+        values:
+        - name: instagram
+          label: Instagram
+        - name: x
+          label: X
+        - name: tiktok
+          label: TikTok
+        - name: discord
+          label: Discord
+    - name: url
+      label: URL (https://...)
+      type: string
+      required: true
+    list: true
+  - name: footer
+    label: Pie de página
+    type: object
     fields:
-      - name: colors
-        label: Colores (formato #rrggbb)
-        type: object
-        fields:
-          - name: primary
-            label: Primario
-            type: string
-            required: true
-          - name: primaryContrast
-            label: Texto sobre primario
-            type: string
-            required: true
-          - name: background
-            label: Fondo
-            type: string
-            required: true
-          - name: surface
-            label: Superficies (tarjetas)
-            type: string
-            required: true
-          - name: text
-            label: Texto
-            type: string
-            required: true
-          - name: muted
-            label: Texto secundario
-            type: string
-            required: true
-      - name: radius
-        label: Redondeo de esquinas
-        type: select
-        options:
-          values:
-            - name: none
-              label: Ninguno
-            - name: sm
-              label: Pequeño
-            - name: md
-              label: Medio
-            - name: lg
-              label: Grande
-            - name: xl
-              label: Muy grande
-
-  - name: services
-    label: Servicios
-    type: file
-    path: content/collections/services.json
-    format: json
+    - name: tagline
+      label: 'Texto 1 · Pie: frase principal'
+      type: string
+      required: true
+    - name: blurb
+      label: 'Texto 2 · Pie: texto secundario'
+      type: text
+    - name: navTitle
+      label: 'Texto 3 · Pie: título de la columna de enlaces'
+      type: string
+      required: true
+    - name: contactTitle
+      label: 'Texto 4 · Pie: título de la columna de contacto'
+      type: string
+      required: true
+    - name: rights
+      label: 'Texto 5 · Pie: derechos reservados'
+      type: string
+      required: true
+- name: navigation
+  label: Menú de navegación
+  type: file
+  path: content/navigation.json
+  format: json
+  fields:
+  - name: items
+    label: Enlaces del menú (también salen en el pie)
+    type: object
     fields:
-      - name: items
-        label: Servicios
-        type: object
-        list: true
-        fields:
-          - name: id
-            label: Identificador único (sin espacios)
-            type: string
-            required: true
-          - name: title
-            label: Título
-            type: string
-            required: true
-          - name: description
-            label: Descripción
-            type: text
-            required: true
-          - name: icon
-            label: Ícono
-            type: select
-            options:
-              values:
-                - name: code
-                  label: Código
-                - name: palette
-                  label: Paleta
-                - name: chart
-                  label: Gráfica
-                - name: shield
-                  label: Escudo
-                - name: rocket
-                  label: Cohete
-                - name: chat
-                  label: Chat
-          - name: price
-            label: Precio (opcional)
-            type: string
-
-  - name: testimonials
+    - name: label
+      label: 'Texto 2 · Encabezado: texto del enlace'
+      type: string
+      required: true
+    - name: href
+      label: Ruta (/about) o ancla de una página (/#servicios)
+      type: string
+      required: true
+    list: true
+- name: theme
+  label: Tema y colores
+  type: file
+  path: content/theme.json
+  format: json
+  fields:
+  - name: mode
+    label: Modo
+    type: select
+    options:
+      values:
+      - name: auto
+        label: Automático (sigue al dispositivo)
+      - name: dark
+        label: Siempre oscuro
+      - name: light
+        label: Siempre claro
+  - name: dark
+    label: 'Colores modo oscuro (formato #rrggbb)'
+    type: object
+    fields:
+    - name: background
+      label: Fondo
+      type: string
+      required: true
+    - name: backgroundSoft
+      label: Fondo suave
+      type: string
+      required: true
+    - name: surface
+      label: Tarjetas
+      type: string
+      required: true
+    - name: line
+      label: Líneas y bordes
+      type: string
+      required: true
+    - name: text
+      label: Texto
+      type: string
+      required: true
+    - name: muted
+      label: Texto secundario
+      type: string
+      required: true
+    - name: primary
+      label: Color primario (acento)
+      type: string
+      required: true
+    - name: secondary
+      label: Color secundario (acento)
+      type: string
+      required: true
+    - name: onPrimary
+      label: Texto sobre el color primario
+      type: string
+      required: true
+  - name: light
+    label: 'Colores modo claro (formato #rrggbb)'
+    type: object
+    fields:
+    - name: background
+      label: Fondo
+      type: string
+      required: true
+    - name: backgroundSoft
+      label: Fondo suave
+      type: string
+      required: true
+    - name: surface
+      label: Tarjetas
+      type: string
+      required: true
+    - name: line
+      label: Líneas y bordes
+      type: string
+      required: true
+    - name: text
+      label: Texto
+      type: string
+      required: true
+    - name: muted
+      label: Texto secundario
+      type: string
+      required: true
+    - name: primary
+      label: Color primario (acento)
+      type: string
+      required: true
+    - name: secondary
+      label: Color secundario (acento)
+      type: string
+      required: true
+    - name: onPrimary
+      label: Texto sobre el color primario
+      type: string
+      required: true
+  - name: radius
+    label: Redondeo de esquinas
+    type: select
+    options:
+      values:
+      - name: none
+        label: Ninguno
+      - name: sm
+        label: Pequeño
+      - name: md
+        label: Medio
+      - name: lg
+        label: Grande
+      - name: xl
+        label: Muy grande
+- name: services
+  label: Servicios (tarjetas)
+  type: file
+  path: content/collections/services.json
+  format: json
+  fields:
+  - name: items
+    label: Tarjetas de servicios
+    type: object
+    fields:
+    - name: id
+      label: Identificador único (sin espacios)
+      type: string
+      required: true
+    - name: title
+      label: 'Texto 4 · Servicios: título de la tarjeta'
+      type: string
+      required: true
+    - name: description
+      label: 'Texto 5 · Servicios: descripción de la tarjeta'
+      type: text
+      required: true
+    - name: icon
+      label: Ícono
+      type: select
+      options:
+        values:
+        - name: code
+          label: Código
+        - name: palette
+          label: Paleta
+        - name: chart
+          label: Gráfica
+        - name: shield
+          label: Escudo
+        - name: rocket
+          label: Cohete
+        - name: chat
+          label: Chat
+    - name: price
+      label: 'Texto 6 · Servicios: precio (opcional)'
+      type: string
+    list: true
+- name: projects
+  label: Proyectos (tarjetas)
+  type: file
+  path: content/collections/projects.json
+  format: json
+  fields:
+  - name: items
+    label: Proyectos
+    type: object
+    fields:
+    - name: id
+      label: Identificador único (sin espacios)
+      type: string
+      required: true
+    - name: tag
+      label: 'Texto 5 · Proyectos: etiqueta superior'
+      type: string
+    - name: title
+      label: 'Texto 6 · Proyectos: título'
+      type: string
+      required: true
+    - name: text
+      label: 'Texto 7 · Proyectos: descripción'
+      type: text
+      required: true
+    - name: stack
+      label: 'Texto 8 · Proyectos: etiquetas de tecnologías'
+      type: string
+      list: true
+    - name: url
+      label: Enlace del proyecto (opcional)
+      type: string
+    - name: image
+      label: Logo o imagen (opcional)
+      type: image
+    list: true
+- name: testimonials
+  label: Testimonios
+  type: file
+  path: content/collections/testimonials.json
+  format: json
+  fields:
+  - name: items
     label: Testimonios
-    type: file
-    path: content/collections/testimonials.json
-    format: json
+    type: object
     fields:
-      - name: items
-        label: Testimonios
-        type: object
-        list: true
-        fields:
-          - name: id
-            label: Identificador único (sin espacios)
-            type: string
-            required: true
-          - name: author
-            label: Autor
-            type: string
-            required: true
-          - name: role
-            label: Cargo (opcional)
-            type: string
-          - name: quote
-            label: Testimonio
-            type: text
-            required: true
-          - name: image
-            label: Foto (opcional)
-            type: image
-
-  - name: pages
-    label: Páginas
-    type: collection
-    path: content/pages
-    format: json
-    fields:
-      - name: slug
-        label: Slug (debe ser igual al nombre del archivo; "home" es la portada)
+    - name: id
+      label: Identificador único (sin espacios)
+      type: string
+      required: true
+    - name: quote
+      label: 'Texto 3 · Testimonios: cita'
+      type: text
+      required: true
+    - name: author
+      label: 'Texto 4 · Testimonios: autor'
+      type: string
+      required: true
+    - name: role
+      label: 'Texto 5 · Testimonios: cargo (opcional)'
+      type: string
+    - name: image
+      label: Foto (opcional)
+      type: image
+    list: true
+- name: pages
+  label: Páginas
+  type: collection
+  path: content/pages
+  format: json
+  fields:
+  - name: slug
+    label: Slug (debe ser igual al nombre del archivo; "home" es la portada)
+    type: string
+    required: true
+  - name: title
+    label: Texto 1 · Título de la página (pestaña del navegador)
+    type: string
+    required: true
+  - name: description
+    label: Texto 2 · Descripción SEO de la página
+    type: text
+  - name: sections
+    label: Secciones (en orden de arriba hacia abajo)
+    type: block
+    list: true
+    blockKey: type
+    blocks:
+    - name: hero
+      label: Hero (portada)
+      fields:
+      - &id001
+        name: id
+        label: 'Ancla (opcional, ej. servicios): permite enlazar con /#servicios'
         type: string
-        required: true
+      - name: eyebrow
+        label: Texto 1 · Etiqueta superior
+        type: string
       - name: title
-        label: Título
+        label: Texto 2 · Título
         type: string
         required: true
-      - name: description
-        label: Descripción SEO
+      - name: subtitle
+        label: Texto 3 · Subtítulo
         type: text
-      - name: sections
-        label: Secciones
-        type: block
+      - name: primaryCta
+        label: Texto 4 · Botón 1
+        type: object
+        fields:
+        - name: label
+          label: Texto del botón
+          type: string
+        - name: href
+          label: Enlace (/ruta, /ruta#ancla o https://...)
+          type: string
+      - name: secondaryCta
+        label: Texto 5 · Botón 2
+        type: object
+        fields:
+        - name: label
+          label: Texto del botón
+          type: string
+        - name: href
+          label: Enlace (/ruta, /ruta#ancla o https://...)
+          type: string
+      - name: showWhatsapp
+        label: Mostrar botón de WhatsApp
+        type: boolean
+      - name: tagsLabel
+        label: Texto 6 · Etiqueta de la lista
+        type: string
+      - name: tags
+        label: Texto 7 · Etiquetas (tecnologías)
+        type: string
         list: true
-        blockKey: type
-        blocks:
-          - name: hero
-            label: Portada (hero)
-            fields:
-              - name: title
-                label: Título
-                type: string
-                required: true
-              - name: subtitle
-                label: Subtítulo
-                type: text
-              - name: image
-                label: Imagen
-                type: image
-              - name: primaryCta
-                label: Botón principal
-                type: object
-                fields:
-                  - name: label
-                    label: Texto
-                    type: string
-                  - name: href
-                    label: Enlace
-                    type: string
-              - name: secondaryCta
-                label: Botón secundario
-                type: object
-                fields:
-                  - name: label
-                    label: Texto
-                    type: string
-                  - name: href
-                    label: Enlace
-                    type: string
-          - name: services
-            label: Servicios
-            fields:
-              - name: title
-                label: Título
-                type: string
-                required: true
-              - name: intro
-                label: Introducción
-                type: text
-              - name: limit
-                label: Máximo a mostrar (opcional)
-                type: number
-          - name: testimonials
-            label: Testimonios
-            fields:
-              - name: title
-                label: Título
-                type: string
-                required: true
-              - name: limit
-                label: Máximo a mostrar (opcional)
-                type: number
-          - name: text
-            label: Texto
-            fields:
-              - name: title
-                label: Título
-                type: string
-              - name: paragraphs
-                label: Párrafos
-                type: text
-                list: true
-                required: true
-          - name: cta
-            label: Llamada a la acción
-            fields:
-              - name: title
-                label: Título
-                type: string
-                required: true
-              - name: text
-                label: Texto
-                type: text
-              - name: button
-                label: Botón
-                type: object
-                fields:
-                  - name: label
-                    label: Texto
-                    type: string
-                    required: true
-                  - name: href
-                    label: Enlace
-                    type: string
-                    required: true
-          - name: contact
-            label: Contacto
-            fields:
-              - name: title
-                label: Título
-                type: string
-                required: true
-              - name: intro
-                label: Introducción
-                type: text
+      - name: image
+        label: Imagen (opcional)
+        type: image
+    - name: services
+      label: Servicios
+      fields:
+      - *id001
+      - name: eyebrow
+        label: Texto 1 · Etiqueta superior
+        type: string
+      - name: title
+        label: Texto 2 · Título
+        type: string
+        required: true
+      - name: intro
+        label: Texto 3 · Introducción
+        type: text
+      - name: limit
+        label: Máximo de tarjetas (opcional; las tarjetas se editan en «Servicios»)
+        type: number
+    - name: projects
+      label: Proyectos
+      fields:
+      - *id001
+      - name: eyebrow
+        label: Texto 1 · Etiqueta superior
+        type: string
+      - name: title
+        label: Texto 2 · Título
+        type: string
+        required: true
+      - name: intro
+        label: Texto 3 · Introducción
+        type: text
+      - name: visitLabel
+        label: Texto 4 · Texto del enlace «Ver sitio»
+        type: string
+      - name: limit
+        label: Máximo de proyectos (opcional; se editan en «Proyectos»)
+        type: number
+    - name: process
+      label: Proceso (pasos)
+      fields:
+      - *id001
+      - name: eyebrow
+        label: Texto 1 · Etiqueta superior
+        type: string
+      - name: title
+        label: Texto 2 · Título
+        type: string
+        required: true
+      - name: steps
+        label: Pasos
+        type: object
+        fields:
+        - name: title
+          label: Texto 3 · Título del paso
+          type: string
+          required: true
+        - name: text
+          label: Texto 4 · Descripción del paso
+          type: text
+          required: true
+        list: true
+    - name: text
+      label: Texto (sobre nosotros)
+      fields:
+      - *id001
+      - name: eyebrow
+        label: Texto 1 · Etiqueta superior
+        type: string
+      - name: title
+        label: Texto 2 · Título
+        type: string
+      - name: paragraphs
+        label: Texto 3 · Párrafos
+        type: text
+        required: true
+        list: true
+      - name: image
+        label: Imagen (opcional)
+        type: image
+    - name: testimonials
+      label: Testimonios
+      fields:
+      - *id001
+      - name: eyebrow
+        label: Texto 1 · Etiqueta superior
+        type: string
+      - name: title
+        label: Texto 2 · Título
+        type: string
+        required: true
+      - name: limit
+        label: Máximo (opcional; se editan en «Testimonios»)
+        type: number
+    - name: faq
+      label: Preguntas frecuentes
+      fields:
+      - *id001
+      - name: eyebrow
+        label: Texto 1 · Etiqueta superior
+        type: string
+      - name: title
+        label: Texto 2 · Título
+        type: string
+        required: true
+      - name: items
+        label: Preguntas
+        type: object
+        fields:
+        - name: question
+          label: Texto 3 · Pregunta
+          type: string
+          required: true
+        - name: answer
+          label: Texto 4 · Respuesta
+          type: text
+          required: true
+        list: true
+    - name: cta
+      label: Llamada a la acción
+      fields:
+      - *id001
+      - name: eyebrow
+        label: Texto 1 · Etiqueta superior
+        type: string
+      - name: title
+        label: Texto 2 · Título
+        type: string
+        required: true
+      - name: text
+        label: Texto 3 · Texto
+        type: text
+      - name: button
+        label: Texto 4 · Botón
+        type: object
+        fields:
+        - name: label
+          label: Texto del botón
+          type: string
+        - name: href
+          label: Enlace (/ruta, /ruta#ancla o https://...)
+          type: string
+      - name: showWhatsapp
+        label: Mostrar botón de WhatsApp
+        type: boolean
+    - name: contact
+      label: Contacto
+      fields:
+      - *id001
+      - name: eyebrow
+        label: Texto 1 · Etiqueta superior
+        type: string
+      - name: title
+        label: Texto 2 · Título
+        type: string
+        required: true
+      - name: intro
+        label: Texto 3 · Introducción
+        type: text
+      - name: showWhatsapp
+        label: Mostrar botón de WhatsApp
+        type: boolean
+      - name: showSocial
+        label: Mostrar íconos de redes
+        type: boolean
