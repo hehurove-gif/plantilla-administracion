@@ -22,7 +22,7 @@ export const link = z.object({
 export const iconNames = ['code', 'palette', 'chart', 'shield', 'rocket', 'chat', 'bolt', 'mobile', 'settings'] as const;
 
 /** Redes con ícono en public/social/<red>.png. WhatsApp se genera aparte desde contact.whatsapp. */
-export const socialNetworks = ['instagram', 'x', 'linkedin', 'tiktok', 'discord'] as const;
+export const socialNetworks = ['instagram', 'x', 'linkedin', 'github', 'tiktok', 'discord'] as const;
 
 /* ---------- site / navigation / theme ---------- */
 
@@ -57,6 +57,14 @@ export const siteSchema = z.object({
     navTitle: z.string().min(1),
     contactTitle: z.string().min(1),
     rights: z.string().min(1),
+    /** Crédito opcional del desarrollador (ej. "Developed by Hetor"). Quítalo para ocultarlo. */
+    credit: z
+      .object({
+        text: z.string().min(1),
+        name: z.string().min(1),
+        href: z.string().regex(/^https:\/\/[^\s]+$/, 'Debe ser una URL https'),
+      })
+      .optional(),
   }),
 });
 

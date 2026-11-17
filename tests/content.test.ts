@@ -206,6 +206,32 @@ describe('LinkedIn, precios y agendar llamada', () => {
   });
 });
 
+describe('GitHub y crédito del pie', () => {
+  it('GitHub está entre las redes', () => {
+    const { social } = validateContent(realRaw()).site;
+    expect(social.some((x) => x.network === 'github' && x.url.startsWith('https://github.com/'))).toBe(true);
+  });
+
+  it('el pie incluye el crédito con enlace https', () => {
+    const credit = validateContent(realRaw()).site.footer.credit!;
+    expect(credit.text).toBe('Developed by');
+    expect(credit.name).toBe('Hetor');
+    expect(credit.href).toBe('https://hetor.hehurove.workers.dev/es');
+  });
+
+  it('el crédito es opcional', () => {
+    const raw = clone(realRaw());
+    delete (raw.site as Any).footer.credit;
+    expect(issuesOf(raw)).toEqual([]);
+  });
+
+  it('rechaza un crédito con enlace que no es https', () => {
+    const raw = clone(realRaw());
+    (raw.site as Any).footer.credit.href = 'http://ejemplo.com';
+    expect(issuesOf(raw).some((i) => i.includes('credit.href'))).toBe(true);
+  });
+});
+
 describe('tema', () => {
   it('modo auto genera oscuro por defecto y claro según el dispositivo', () => {
     const css = themeToCss(validateContent(realRaw()).theme);

@@ -12,7 +12,7 @@ Todo texto de ejemplo dice dónde está: **`Texto N, sección X`**. Por ejemplo,
 
 ## Archivos
 
-- `content/site.json`: nombre, descripción SEO, contacto, WhatsApp (`whatsapp` solo dígitos con código de país; vacío oculta todos los botones de WhatsApp), `schedulingUrl` (Calendly o Google Calendar; vacío oculta el botón «agendar llamada»), `social` (instagram, x, linkedin, tiktok, discord) y textos del pie.
+- `content/site.json`: nombre, descripción SEO, contacto, WhatsApp (`whatsapp` solo dígitos con código de país; vacío oculta todos los botones de WhatsApp), `schedulingUrl` (Calendly o Google Calendar; vacío oculta el botón «agendar llamada»), `social` (instagram, x, linkedin, github, tiktok, discord) y textos del pie y un `footer.credit` opcional («Developed by Hetor» con enlace; bórralo para ocultarlo en sitios de cliente que no lo quieran).
 - `content/navigation.json`: `items[{label, href}]`. Acepta rutas (`/about`) y anclas (`/#servicios`); ambas se validan.
 - `content/theme.json`: `mode` (`auto|dark|light`), paletas `dark` y `light` (hex) y `radius`. En `auto` sigue el modo del dispositivo.
 - `content/collections/services.json`, `projects.json`, `testimonials.json`: `items[]` con `id` único. Las secciones los **referencian** (no duplican datos).
@@ -37,9 +37,9 @@ Todas aceptan `id` (ancla, ej. `servicios` → `/#servicios`) y `eyebrow` (etiqu
 
 ## Redes e íconos
 
-Los íconos están en `public/social/<red>.png` (whatsapp, instagram, x, linkedin, tiktok, discord). WhatsApp se genera desde `site.contact.whatsapp`; las demás, desde `site.social`. Para ocultar una red, quítala de la lista.
+Los íconos están en `public/social/<red>.png` (whatsapp, instagram, x, linkedin, github, tiktok, discord). WhatsApp se genera desde `site.contact.whatsapp`; las demás, desde `site.social`. Para ocultar una red, quítala de la lista.
 
-Íconos disponibles en servicios: `code`, `palette`, `chart`, `shield`, `rocket`, `chat`, `bolt`, `mobile`, `settings`. El ícono de LinkedIn es el glifo de Bootstrap Icons (MIT) en azul de LinkedIn; si prefieres el oficial, reemplaza `public/social/linkedin.png` conservando el nombre.
+Íconos disponibles en servicios: `code`, `palette`, `chart`, `shield`, `rocket`, `chat`, `bolt`, `mobile`, `settings`. Los íconos de LinkedIn y GitHub son glifos de Bootstrap Icons (MIT): LinkedIn en azul y GitHub en blanco sobre cuadrado negro. Si prefieres los oficiales, reemplaza `public/social/linkedin.png` o `github.png` conservando el nombre.
 
 ## Origen de algunas secciones
 

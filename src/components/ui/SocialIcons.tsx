@@ -1,7 +1,7 @@
 import { content } from '@/content/loader';
 import { whatsappLink } from '@/utils/whatsapp';
 
-const LABELS = { instagram: 'Instagram', x: 'X', linkedin: 'LinkedIn', tiktok: 'TikTok', discord: 'Discord', whatsapp: 'WhatsApp' } as const;
+const LABELS = { instagram: 'Instagram', x: 'X', linkedin: 'LinkedIn', github: 'GitHub', tiktok: 'TikTok', discord: 'Discord', whatsapp: 'WhatsApp' } as const;
 
 /** Íconos de redes: WhatsApp (desde contact.whatsapp) más las redes de site.social. Si no hay ninguna, no renderiza nada. */
 export function SocialIcons() {

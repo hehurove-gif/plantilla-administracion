@@ -48,9 +48,24 @@ export function Footer() {
 
       <div className="border-t border-line">
         <div className="mx-auto w-full max-w-6xl px-5 py-5 text-xs text-muted sm:px-8">
-          <p>
-            © {new Date().getFullYear()} {site.name}. {f.rights}
-          </p>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <p>
+              © {new Date().getFullYear()} {site.name}. {f.rights}
+            </p>
+            {f.credit && (
+              <p>
+                {f.credit.text}{' '}
+                <a
+                  href={f.credit.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-primary hover:underline"
+                >
+                  {f.credit.name}
+                </a>
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </footer>

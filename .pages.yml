@@ -62,6 +62,8 @@ content:
           label: X
         - name: linkedin
           label: LinkedIn
+        - name: github
+          label: GitHub
         - name: tiktok
           label: TikTok
         - name: discord
@@ -94,6 +96,19 @@ content:
       label: 'Texto 5 · Pie: derechos reservados'
       type: string
       required: true
+    - name: credit
+      label: Crédito del desarrollador (borra los campos para ocultarlo)
+      type: object
+      fields:
+      - name: text
+        label: Texto del crédito (ej. Developed by)
+        type: string
+      - name: name
+        label: Nombre con enlace (ej. Hetor)
+        type: string
+      - name: href
+        label: Enlace del crédito (https://...)
+        type: string
 - name: navigation
   label: Menú de navegación
   type: file

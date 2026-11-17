@@ -25,6 +25,10 @@
       "url": "https://www.linkedin.com/in/romero-velazquez-h-6939a73b1/"
     },
     {
+      "network": "github",
+      "url": "https://github.com/hehurove-gif"
+    },
+    {
       "network": "tiktok",
       "url": "https://www.tiktok.com/@usuario"
     },
@@ -38,6 +42,11 @@
     "blurb": "Texto 2, sección Pie de página",
     "navTitle": "Texto 3, sección Pie de página",
     "contactTitle": "Texto 4, sección Pie de página",
-    "rights": "Texto 5, sección Pie de página"
+    "rights": "Texto 5, sección Pie de página",
+    "credit": {
+      "text": "Developed by",
+      "name": "Hetor",
+      "href": "https://hetor.hehurove.workers.dev/es"
+    }
   }
 }
