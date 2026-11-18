@@ -42,7 +42,7 @@ src/
   themes/           theme.json -> variables CSS
 scripts/            validate-content.ts
 tests/              Vitest
-docs/               content-model.md
+docs/               content-model.md, deployment.md
 ```
 
 ## Cómo se edita el contenido
@@ -52,3 +52,5 @@ docs/               content-model.md
 3. Para una página nueva: crea `content/pages/<slug>.json` y agrégala a `navigation.json`.
 
 Ver `docs/content-model.md` para los tipos de sección.
+
+Publicación, validación en GitHub Actions y vistas previas por rama/PR: `docs/deployment.md`.
