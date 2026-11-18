@@ -10,6 +10,46 @@
       "paragraphs": [
         "Texto 3, sección Sobre nosotros (párrafo 1), página Nosotros",
         "Texto 3, sección Sobre nosotros (párrafo 2), página Nosotros"
+      ],
+      "image": "/images/nosotros.svg"
+    },
+    {
+      "type": "gallery",
+      "id": "galeria",
+      "eyebrow": "Texto 1, sección Galería, página Nosotros",
+      "title": "Texto 2, sección Galería, página Nosotros",
+      "intro": "Texto 3, sección Galería, página Nosotros",
+      "images": [
+        {
+          "image": "/images/galeria-1.svg",
+          "alt": "Texto 4, sección Galería (imagen 1): descripción de la imagen",
+          "caption": "Texto 5, sección Galería (imagen 1)"
+        },
+        {
+          "image": "/images/galeria-2.svg",
+          "alt": "Texto 4, sección Galería (imagen 2): descripción de la imagen",
+          "caption": "Texto 5, sección Galería (imagen 2)"
+        },
+        {
+          "image": "/images/galeria-3.svg",
+          "alt": "Texto 4, sección Galería (imagen 3): descripción de la imagen",
+          "caption": "Texto 5, sección Galería (imagen 3)"
+        },
+        {
+          "image": "/images/galeria-4.svg",
+          "alt": "Texto 4, sección Galería (imagen 4): descripción de la imagen",
+          "caption": "Texto 5, sección Galería (imagen 4)"
+        },
+        {
+          "image": "/images/galeria-5.svg",
+          "alt": "Texto 4, sección Galería (imagen 5): descripción de la imagen",
+          "caption": "Texto 5, sección Galería (imagen 5)"
+        },
+        {
+          "image": "/images/galeria-6.svg",
+          "alt": "Texto 4, sección Galería (imagen 6): descripción de la imagen",
+          "caption": "Texto 5, sección Galería (imagen 6)"
+        }
       ]
     },
     {

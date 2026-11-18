@@ -4,19 +4,22 @@
       "id": "testimonio-1",
       "quote": "Texto 3, sección Testimonios (testimonio 1)",
       "author": "Texto 4, sección Testimonios (testimonio 1)",
-      "role": "Texto 5, sección Testimonios (testimonio 1)"
+      "role": "Texto 5, sección Testimonios (testimonio 1)",
+      "image": "/images/testimonio-1.svg"
     },
     {
       "id": "testimonio-2",
       "quote": "Texto 3, sección Testimonios (testimonio 2)",
       "author": "Texto 4, sección Testimonios (testimonio 2)",
-      "role": "Texto 5, sección Testimonios (testimonio 2)"
+      "role": "Texto 5, sección Testimonios (testimonio 2)",
+      "image": "/images/testimonio-2.svg"
     },
     {
       "id": "testimonio-3",
       "quote": "Texto 3, sección Testimonios (testimonio 3)",
       "author": "Texto 4, sección Testimonios (testimonio 3)",
-      "role": "Texto 5, sección Testimonios (testimonio 3)"
+      "role": "Texto 5, sección Testimonios (testimonio 3)",
+      "image": "/images/testimonio-3.svg"
     }
   ]
 }

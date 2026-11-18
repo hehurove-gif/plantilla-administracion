@@ -100,6 +100,7 @@ export const serviceSchema = z.object({
   description: z.string().min(1),
   icon: z.enum(iconNames).default('code'),
   price: z.string().optional(),
+  image: imagePath.optional(),
 });
 
 export const projectSchema = z.object({
@@ -109,7 +110,10 @@ export const projectSchema = z.object({
   text: z.string().min(1),
   stack: z.array(z.string().min(1)).default([]),
   url: href.optional(),
+  /** Logo pequeño junto al título. */
   image: imagePath.optional(),
+  /** Imagen grande en la parte superior de la tarjeta. */
+  cover: imagePath.optional(),
 });
 
 export const testimonialSchema = z.object({
@@ -186,6 +190,23 @@ export const textSection = z.object({
   image: imagePath.optional(),
 });
 
+export const gallerySection = z.object({
+  ...base,
+  type: z.literal('gallery'),
+  title: z.string().optional(),
+  intro: z.string().optional(),
+  images: z
+    .array(
+      z.object({
+        image: imagePath,
+        /** Texto alternativo: describe la imagen para lectores de pantalla. */
+        alt: z.string().min(1),
+        caption: z.string().optional(),
+      }),
+    )
+    .min(1),
+});
+
 export const pricingSection = z.object({
   ...base,
   type: z.literal('pricing'),
@@ -241,6 +262,7 @@ export const sectionSchema = z.discriminatedUnion('type', [
   pricingSection,
   testimonialsSection,
   textSection,
+  gallerySection,
   faqSection,
   ctaSection,
   contactSection,

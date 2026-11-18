@@ -10,7 +10,9 @@ export function Projects({ eyebrow, title, intro, limit, visitLabel }: Props) {
     <SectionShell eyebrow={eyebrow} title={title} intro={intro} className="border-t border-line">
       <ul className="grid gap-6 md:grid-cols-2">
         {items.map((p) => (
-          <li key={p.id} className="flex flex-col rounded-theme border border-line bg-surface p-6">
+          <li key={p.id} className="flex flex-col overflow-hidden rounded-theme border border-line bg-surface">
+            {p.cover && <img src={p.cover} alt="" loading="lazy" className="aspect-video w-full object-cover" />}
+            <div className="flex flex-1 flex-col p-6">
             <div className="flex items-start gap-4">
               {p.image && <img src={p.image} alt="" className="h-12 w-12 shrink-0 rounded-xl border border-line object-contain" />}
               <div className="min-w-0">
@@ -38,6 +40,7 @@ export function Projects({ eyebrow, title, intro, limit, visitLabel }: Props) {
                 {visitLabel} ↗
               </a>
             )}
+            </div>
           </li>
         ))}
       </ul>

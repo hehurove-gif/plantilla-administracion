@@ -316,3 +316,40 @@ describe('whatsapp', () => {
     expect(whatsappLink('123')).toBeNull();
   });
 });
+
+describe('imágenes y galería', () => {
+  const imgs = (raw: Any) => {
+    const out: string[] = [];
+    const walk = (v: Any) => {
+      if (Array.isArray(v)) v.forEach(walk);
+      else if (v && typeof v === 'object')
+        for (const [k, x] of Object.entries(v)) {
+          if ((k === 'image' || k === 'cover') && typeof x === 'string') out.push(x);
+          else walk(x);
+        }
+    };
+    walk(raw);
+    return out;
+  };
+
+  it('todas las imágenes del contenido de ejemplo existen en public/', () => {
+    const raw = realRaw() as Any;
+    const list = imgs(raw);
+    expect(list.length).toBeGreaterThanOrEqual(15);
+    for (const i of list) expect(existsSync(join(process.cwd(), 'public', i)), i).toBe(true);
+  });
+
+  it('la galería exige texto alternativo', () => {
+    const raw = realRaw() as Any;
+    const about = raw.pages.about;
+    about.sections.find((s: Any) => s.type === 'gallery').images[0].alt = '';
+    expect(() => validateContent(raw)).toThrow(ContentError);
+  });
+
+  it('la galería no puede estar vacía', () => {
+    const raw = realRaw() as Any;
+    const about = raw.pages.about;
+    about.sections.find((s: Any) => s.type === 'gallery').images = [];
+    expect(() => validateContent(raw)).toThrow(ContentError);
+  });
+});

@@ -44,7 +44,7 @@ function collectImages(value: unknown, out: Set<string>) {
   if (Array.isArray(value)) value.forEach((v) => collectImages(v, out));
   else if (value && typeof value === 'object') {
     for (const [k, v] of Object.entries(value)) {
-      if (k === 'image' && typeof v === 'string' && v.startsWith('/')) out.add(v);
+      if ((k === 'image' || k === 'cover') && typeof v === 'string' && v.startsWith('/')) out.add(v);
       else collectImages(v, out);
     }
   }

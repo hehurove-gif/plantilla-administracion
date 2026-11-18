@@ -6,6 +6,7 @@ import { Process } from './Process';
 import { Pricing } from './Pricing';
 import { Testimonials } from './Testimonials';
 import { TextBlock } from './TextBlock';
+import { Gallery } from './Gallery';
 import { Faq } from './Faq';
 import { Cta } from './Cta';
 import { Contact } from './Contact';
@@ -26,6 +27,8 @@ function renderSection(section: Section) {
       return <Testimonials {...section} />;
     case 'text':
       return <TextBlock {...section} />;
+    case 'gallery':
+      return <Gallery {...section} />;
     case 'faq':
       return <Faq {...section} />;
     case 'cta':

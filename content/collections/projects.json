@@ -9,7 +9,8 @@
         "Texto 8, sección Proyectos (proyecto 1, etiqueta 1)",
         "Texto 8, sección Proyectos (proyecto 1, etiqueta 2)"
       ],
-      "url": "https://ejemplo.com"
+      "url": "https://ejemplo.com",
+      "cover": "/images/proyecto-1-portada.svg"
     },
     {
       "id": "proyecto-2",
@@ -20,7 +21,8 @@
         "Texto 8, sección Proyectos (proyecto 2, etiqueta 1)",
         "Texto 8, sección Proyectos (proyecto 2, etiqueta 2)"
       ],
-      "url": "https://ejemplo.com"
+      "url": "https://ejemplo.com",
+      "cover": "/images/proyecto-2-portada.svg"
     }
   ]
 }

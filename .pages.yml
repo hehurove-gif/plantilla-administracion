@@ -288,6 +288,9 @@ content:
     - name: price
       label: 'Texto 6 · Servicios: precio (opcional)'
       type: string
+    - name: image
+      label: 'Imagen 1 · Servicios: imagen de la tarjeta (opcional)'
+      type: image
     list: true
 - name: projects
   label: Proyectos (tarjetas)
@@ -322,7 +325,10 @@ content:
       label: Enlace del proyecto (opcional)
       type: string
     - name: image
-      label: Logo o imagen (opcional)
+      label: Logo pequeño junto al título (opcional)
+      type: image
+    - name: cover
+      label: 'Imagen 1 · Proyectos: portada de la tarjeta (opcional)'
       type: image
     list: true
 - name: testimonials
@@ -559,6 +565,35 @@ content:
       - name: image
         label: Imagen (opcional)
         type: image
+    - name: gallery
+      label: Galería de imágenes
+      fields:
+      - *id001
+      - name: eyebrow
+        label: Texto 1 · Etiqueta superior
+        type: string
+      - name: title
+        label: Texto 2 · Título
+        type: string
+      - name: intro
+        label: Texto 3 · Introducción
+        type: text
+      - name: images
+        label: Imágenes (agrega o quita las que quieras)
+        type: object
+        fields:
+        - name: image
+          label: Imagen
+          type: image
+          required: true
+        - name: alt
+          label: Texto 4 · Descripción de la imagen (accesibilidad)
+          type: string
+          required: true
+        - name: caption
+          label: Texto 5 · Pie de foto (opcional)
+          type: string
+        list: true
     - name: testimonials
       label: Testimonios
       fields:

@@ -16,6 +16,7 @@ Todo texto de ejemplo dice dónde está: **`Texto N, sección X`**. Por ejemplo,
 - `content/navigation.json`: `items[{label, href}]`. Acepta rutas (`/about`) y anclas (`/#servicios`); ambas se validan.
 - `content/theme.json`: `mode` (`auto|dark|light`), paletas `dark` y `light` (hex) y `radius`. En `auto` sigue el modo del dispositivo y el encabezado muestra un botón sol/luna para cambiarlo (se recuerda en el navegador); `dark` o `light` fijan el tema y ocultan el botón. La paleta clara por defecto es la de PETCA (azul y durazno); el naranja de acento es `#a85a0a` (el `#c46f12` de PETCA oscurecido para que el texto cumpla contraste AA), porque el durazno claro no se lee como texto.
 - `content/collections/services.json`, `projects.json`, `testimonials.json`: `items[]` con `id` único. Las secciones los **referencian** (no duplican datos).
+- Imágenes opcionales: `image` en servicios (arriba de la tarjeta), `cover` en proyectos (portada grande; `image` es el logo pequeño), `image` en testimonios (foto redonda) y en secciones `hero`/`text`. Se suben desde Pages CMS a `public/images`. Las de ejemplo son SVG con la etiqueta «Imagen N, sección X».
 - `content/pages/<slug>.json`: `slug` (igual al nombre del archivo; `home` = `/`), `title`, `description?`, `sections[]`.
 
 ## Secciones (`type`)
@@ -30,6 +31,7 @@ Todas aceptan `id` (ancla, ej. `servicios` → `/#servicios`) y `eyebrow` (etiqu
 | `pricing` | `title`, `intro?`, `plans[{name, description?, price, period?, features[], highlighted, cta?}]` |
 | `process` | `title`, `steps[{title,text}]` |
 | `text` | `title?`, `paragraphs[]`, `image?` |
+| `gallery` | `title?`, `intro?`, `images[{image, alt, caption?}]` (el `alt` es obligatorio por accesibilidad) |
 | `testimonials` | `title`, `limit?` (colección de testimonios) |
 | `faq` | `title`, `items[{question,answer}]` |
 | `cta` | `title`, `text?`, `button?`, `showWhatsapp`, `showSchedule` |

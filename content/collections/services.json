@@ -5,25 +5,29 @@
       "title": "Texto 4, sección Servicios (tarjeta 1)",
       "description": "Texto 5, sección Servicios (tarjeta 1)",
       "icon": "code",
-      "price": "Texto 6, sección Servicios (tarjeta 1)"
+      "price": "Texto 6, sección Servicios (tarjeta 1)",
+      "image": "/images/servicio-1.svg"
     },
     {
       "id": "servicio-2",
       "title": "Texto 4, sección Servicios (tarjeta 2)",
       "description": "Texto 5, sección Servicios (tarjeta 2)",
-      "icon": "palette"
+      "icon": "palette",
+      "image": "/images/servicio-2.svg"
     },
     {
       "id": "servicio-3",
       "title": "Texto 4, sección Servicios (tarjeta 3)",
       "description": "Texto 5, sección Servicios (tarjeta 3)",
-      "icon": "chart"
+      "icon": "chart",
+      "image": "/images/servicio-3.svg"
     },
     {
       "id": "servicio-4",
       "title": "Texto 4, sección Servicios (tarjeta 4)",
       "description": "Texto 5, sección Servicios (tarjeta 4)",
-      "icon": "shield"
+      "icon": "shield",
+      "image": "/images/servicio-4.svg"
     }
   ]
 }
